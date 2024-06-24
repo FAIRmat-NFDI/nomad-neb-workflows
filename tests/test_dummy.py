@@ -1,7 +1,7 @@
 from nomad.datamodel.datamodel import EntryArchive
 from nomad_neb_workflows.schema_packages.neb import NEBWorkflow
 
-from . import LOGGER
+from .conftest import LOGGER
 
 
 def test_dummy():
