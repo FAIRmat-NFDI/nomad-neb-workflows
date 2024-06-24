@@ -6,7 +6,7 @@
     "cookiecutter": {
       "full_name": "Jose M. Pizarro",
       "email": "jose.pizarro@physik.hu-berlin.de",
-      "github_username": "JosePizarro3",
+      "github_username": "FAIRmat-NFDI",
       "plugin_name": "neb-workflows",
       "module_name": "neb_workflows",
       "short_description": "A NOMAD plugin containing the section definitions of a standard Nudged Elastic Band (NEB) workflow.",

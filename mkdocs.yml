@@ -1,9 +1,7 @@
 site_name: nomad-neb-workflows
 site_description: A NOMAD plugin containing the section definitions of a standard Nudged Elastic Band (NEB) workflow.
-site_author: Jose M. Pizarro
-
-repo_url: https://github.com/JosePizarro3/nomad-neb-workflows
-
+site_author: FAIRmat-NFDI
+repo_url: https://github.com/FAIRmat-NFDI/nomad-neb-workflows
 nav:
   - Home: index.md
   - Tutorial: tutorial/tutorial.md
