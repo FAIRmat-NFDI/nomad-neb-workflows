@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 from nomad.config import config
 from nomad.datamodel.metainfo.annotations import ELNAnnotation, ELNComponentEnum
-from nomad.metainfo import Quantity, SchemaPackage
+from nomad.metainfo import Quantity, SchemaPackage, Context, Quantity, Section
 from simulationworkflowschema import SimulationWorkflow
 
 configuration = config.get_plugin_entry_point(
@@ -25,6 +25,11 @@ class NEBWorkflow(SimulationWorkflow):
         type=str, a_eln=ELNAnnotation(component=ELNComponentEnum.StringEditQuantity)
     )
     message = Quantity(type=str)
+
+    def __init__(self, m_def: Section = None, m_context: Context = None, **kwargs):
+        super().__init__(m_def, m_context, **kwargs)
+        # Set the name of the section
+        self.name = self.m_def.name
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)

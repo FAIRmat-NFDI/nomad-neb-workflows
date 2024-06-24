@@ -124,14 +124,14 @@ The `pyproject.toml` file contains everything that is necessary to turn the proj
 into a pip installable python package. Run the python build tool to create a package distribution:
 
 ```
-pip install build
+uv pip install build
 python -m build --sdist
 ```
 
 You can install the package with pip:
 
 ```
-pip install dist/nomad-neb-workflows-0.1.0
+uv pip install dist/nomad-neb-workflows-0.1.0
 ```
 
 Read more about python packages, `pyproject.toml`, and how to upload packages to PyPI
@@ -144,7 +144,7 @@ To deploy documentation on Github pages, make sure to [enable GitHub pages via t
 To view the documentation locally, install the documentation related packages using:
 
 ```sh
-pip install -r requirements_docs.txt
+uv pip install -r requirements_docs.txt
 ```
 
 Run the documentation server:
