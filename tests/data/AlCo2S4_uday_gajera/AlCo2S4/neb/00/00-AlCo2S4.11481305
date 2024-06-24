@@ -1,0 +1,379 @@
+ 
+### Setting up shell environment and defaults for environment vars ...
+ 
+ 
+### Printing basic job infos to stdout ...
+ 
+START_TIME             = 23-12-24 22:58:18 1703455098
+HOSTNAME               = n0526
+USER                   = ul_bms28
+SLURM_JOB_NAME         = 00-AlCo2S4
+SLURM_JOB_ID           = 11481305
+SLURM_SUBMIT_DIR       = /lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00
+SLURM_JOB_NUM_NODES    = 1
+SLURM_CPUS_ON_NODE     = 48
+SLURM_NTASKS           = 48
+SLURM_JOB_NODELIST     = n0526
+---------------- ulimit -a -S ----------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 761024
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 172032000
+open files                      (-n) 4096
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 200000
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 16384
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+---------------- ulimit -a -H ----------------
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 761024
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 172032000
+open files                      (-n) 131072
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 200000
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 761024
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+----------------------------------------------
+ 
+### Creating TMP_WORK_DIR directory and changing to it ...
+ 
+TMP_BASE_DIR           = /lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00
+JOB_WORK_DIR           = 00-AlCo2S4.11481305.231224_225818
+TMP_WORK_DIR           = /lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818
+mkdir: created directory '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818'
+ 
+### Loading software module:
+ 
+Do not use this module if you do not own a valid VASP group license.
+Cite VASP in your publications according to VASP documentation.
+Read 'module help chem/vasp/5.4.4.3.16052018' before using VASP.
+
+Currently Loaded Modules:
+  1) compiler/intel/19.1.2   3) numlib/mkl/2020.2
+  2) mpi/impi/2019.8         4) chem/vasp/5.4.4.3.16052018
+
+ 
+
+ 
+### Copying input files to TMP_WORK_DIR:
+ 
+ 
+### Running application ...
+ 
+/opt/bwhpc/common/chem/vasp/5.4.4.3.16052018_i191_avx2/bin/vasp: line 497: ulimit: stack size: cannot modify limit: Operation not permitted
+ running on   48 total cores
+ distrk:  each k-point on   48 cores,    1 groups
+ distr:  one band on    1 cores,   48 groups
+ using from now: INCAR     
+ vasp.5.4.4.2.16052018-CX13-ORIG (build Jul 06 2020 08:41:35) complex           
+  
+ POSCAR found type information on POSCAR  Al Co S 
+ POSCAR found :  3 types and      55 ions
+ scaLAPACK will be used
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|      For optimal performance we recommend to set                            |
+|        NCORE= 4 - approx SQRT( number of cores)                             |
+|      NCORE specifies how many cores store one orbital (NPAR=cpu/NCORE).     |
+|      This setting can  greatly improve the performance of VASP for DFT.     |
+|      The default,   NCORE=1            might be grossly inefficient         |
+|      on modern multi-core architectures or massively parallel machines.     |
+|      Do your own testing !!!!                                               |
+|      Unfortunately you need to use the default for GW and RPA calculations. |
+|      (for HF NCORE is supported but not extensively tested yet)             |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ LDA part: xc-table for Pade appr. of Perdew
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...
+ WAVECAR not read
+ WARNING: chargedensity file is incomplete
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.515599067070E+04    0.51560E+04   -0.22414E+05  5424   0.161E+03
+DAV:   2     0.359682993886E+03   -0.47963E+04   -0.44824E+04  5376   0.443E+02
+DAV:   3    -0.286672800719E+03   -0.64636E+03   -0.61055E+03  6048   0.158E+02
+DAV:   4    -0.318693101025E+03   -0.32020E+02   -0.31701E+02  6528   0.343E+01
+DAV:   5    -0.319271459293E+03   -0.57836E+00   -0.57874E+00  6480   0.539E+00    0.101E+02
+DAV:   6    -0.458493350849E+03   -0.13922E+03   -0.58409E+02  5952   0.112E+02    0.160E+02
+DAV:   7    -0.288497738418E+03    0.17000E+03   -0.26898E+02  6480   0.749E+01    0.583E+01
+DAV:   8    -0.289726232109E+03   -0.12285E+01   -0.73620E+01  6624   0.285E+01    0.285E+01
+DAV:   9    -0.298137494899E+03   -0.84113E+01   -0.26712E+01  6816   0.147E+01    0.202E+01
+DAV:  10    -0.303611808159E+03   -0.54743E+01   -0.27775E+01  6192   0.224E+01    0.323E+01
+DAV:  11    -0.299278514587E+03    0.43333E+01   -0.38298E+01  6528   0.177E+01    0.581E+00
+DAV:  12    -0.299904055521E+03   -0.62554E+00   -0.14675E+00  6240   0.227E+00    0.358E+00
+DAV:  13    -0.300043713411E+03   -0.13966E+00   -0.35771E-01  6768   0.141E+00    0.146E+00
+DAV:  14    -0.300065119692E+03   -0.21406E-01   -0.48236E-02  6288   0.579E-01    0.890E-01
+DAV:  15    -0.300074168066E+03   -0.90484E-02   -0.62881E-03  6864   0.222E-01    0.564E-01
+DAV:  16    -0.300080231579E+03   -0.60635E-02   -0.24743E-03  6432   0.134E-01    0.418E-01
+DAV:  17    -0.300083566325E+03   -0.33347E-02   -0.86226E-04  6912   0.105E-01    0.329E-01
+DAV:  18    -0.300087876736E+03   -0.43104E-02   -0.13222E-03  6768   0.149E-01    0.210E-01
+DAV:  19    -0.300091847623E+03   -0.39709E-02   -0.14880E-03  6912   0.134E-01    0.144E-01
+DAV:  20    -0.300094616012E+03   -0.27684E-02   -0.54765E-04  7392   0.111E-01    0.106E-01
+DAV:  21    -0.300095852820E+03   -0.12368E-02   -0.54053E-04  7152   0.780E-02    0.747E-02
+DAV:  22    -0.300097720305E+03   -0.18675E-02   -0.73057E-04  6672   0.132E-01    0.629E-02
+DAV:  23    -0.300098083112E+03   -0.36281E-03   -0.32622E-04  6384   0.386E-02    0.493E-02
+DAV:  24    -0.300098426343E+03   -0.34323E-03   -0.50920E-05  6000   0.270E-02    0.462E-02
+DAV:  25    -0.300098961313E+03   -0.53497E-03   -0.18275E-04  6576   0.469E-02    0.425E-02
+DAV:  26    -0.300099437907E+03   -0.47659E-03   -0.18047E-04  6720   0.441E-02    0.365E-02
+DAV:  27    -0.300099849581E+03   -0.41167E-03   -0.16995E-04  6528   0.436E-02    0.297E-02
+DAV:  28    -0.300100276106E+03   -0.42653E-03   -0.25192E-04  6624   0.546E-02    0.209E-02
+DAV:  29    -0.300100582520E+03   -0.30641E-03   -0.40676E-04  6672   0.694E-02    0.186E-02
+DAV:  30    -0.300100756045E+03   -0.17352E-03   -0.22628E-04  7344   0.435E-02    0.146E-02
+DAV:  31    -0.300100814148E+03   -0.58104E-04   -0.55908E-05  6624   0.210E-02    0.103E-02
+DAV:  32    -0.300100848621E+03   -0.34473E-04   -0.33646E-05  5520   0.216E-02    0.609E-03
+DAV:  33    -0.300100864294E+03   -0.15673E-04   -0.12477E-05  5040   0.987E-03    0.298E-03
+DAV:  34    -0.300100871658E+03   -0.73637E-05   -0.17990E-06  3552   0.548E-03
+   1 F= -.30010087E+03 E0= -.30010087E+03  d E =-.300101E+03  mag=     0.0647
+ curvature:   0.00 expect dE= 0.000E+00 dE for cont linesearch  0.000E+00
+ trial: gam= 0.00000 g(F)=  0.231E+00 g(S)=  0.000E+00 ort = 0.000E+00 (trialstep = 0.100E+01)
+ search vector abs. value=  0.231E+00
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.298393386204E+03    0.17075E+01   -0.36834E+01  8160   0.770E+01    0.369E+00
+DAV:   2    -0.300280193271E+03   -0.18868E+01   -0.18930E+01  5760   0.707E+00    0.274E+00
+DAV:   3    -0.300308696030E+03   -0.28503E-01   -0.67326E-01  6624   0.352E+00    0.407E+00
+DAV:   4    -0.300244205222E+03    0.64491E-01   -0.35045E-01  6528   0.236E+00    0.133E+00
+DAV:   5    -0.300241836695E+03    0.23685E-02   -0.29104E-02  6432   0.549E-01    0.863E-01
+DAV:   6    -0.300241245122E+03    0.59157E-03   -0.17071E-02  6624   0.576E-01    0.583E-01
+DAV:   7    -0.300239184593E+03    0.20605E-02   -0.47034E-03  6240   0.324E-01    0.167E-01
+DAV:   8    -0.300240066697E+03   -0.88210E-03   -0.10840E-03  6912   0.102E-01    0.107E-01
+DAV:   9    -0.300239945791E+03    0.12091E-03   -0.13610E-04  6192   0.342E-02    0.623E-02
+DAV:  10    -0.300239886898E+03    0.58893E-04   -0.36820E-05  6336   0.161E-02    0.187E-02
+DAV:  11    -0.300239793190E+03    0.93707E-04   -0.99628E-06  4176   0.101E-02    0.801E-03
+DAV:  12    -0.300239787928E+03    0.52618E-05   -0.20667E-06  3840   0.296E-03
+   2 F= -.30023979E+03 E0= -.30023979E+03  d E =-.138916E+00  mag=     0.0373
+ trial-energy change:   -0.138916  1 .order   -0.135120   -0.231246   -0.038994
+ step:   1.1780(harm=  1.2028)  dis= 0.02142  next Energy=  -300.243280 (dE=-0.142E+00)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300187459392E+03    0.52334E-01   -0.11740E+00  8160   0.135E+01    0.615E-01
+DAV:   2    -0.300245197029E+03   -0.57738E-01   -0.57388E-01  5712   0.125E+00    0.393E-01
+DAV:   3    -0.300242268773E+03    0.29283E-02   -0.14120E-02  7104   0.377E-01    0.418E-01
+DAV:   4    -0.300245754628E+03   -0.34859E-02   -0.50425E-03  6528   0.373E-01    0.273E-01
+DAV:   5    -0.300244345094E+03    0.14095E-02   -0.12364E-03  6624   0.163E-01    0.184E-01
+DAV:   6    -0.300244305259E+03    0.39835E-04   -0.62129E-04  6384   0.115E-01    0.961E-02
+DAV:   7    -0.300244212682E+03    0.92577E-04   -0.16485E-04  7248   0.504E-02    0.224E-02
+DAV:   8    -0.300244277235E+03   -0.64552E-04   -0.31485E-05  5856   0.143E-02    0.189E-02
+DAV:   9    -0.300244273686E+03    0.35489E-05   -0.28862E-06  3648   0.498E-03
+   3 F= -.30024427E+03 E0= -.30024427E+03  d E =-.143402E+00  mag=     0.0217
+ curvature:  -0.59 expect dE=-0.959E-02 dE for cont linesearch -0.439E-04
+ ZBRENT: extrapolating
+ opt :   1.1991  next Energy=  -300.244317 (dE=-0.143E+00)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300243542943E+03    0.73429E-03   -0.16644E-02  8256   0.160E+00    0.735E-02
+DAV:   2    -0.300244427983E+03   -0.88504E-03   -0.80963E-03  5856   0.147E-01    0.455E-02
+DAV:   3    -0.300244172470E+03    0.25551E-03   -0.15607E-04  6672   0.327E-02    0.363E-02
+DAV:   4    -0.300244621651E+03   -0.44918E-03   -0.63032E-05  5712   0.339E-02    0.401E-02
+DAV:   5    -0.300244328563E+03    0.29309E-03   -0.28690E-05  4272   0.256E-02    0.225E-02
+DAV:   6    -0.300244371185E+03   -0.42622E-04   -0.99483E-06  3216   0.147E-02    0.117E-02
+DAV:   7    -0.300244364386E+03    0.67982E-05   -0.43894E-06  2976   0.702E-03
+   4 F= -.30024436E+03 E0= -.30024436E+03  d E =-.143493E+00  mag=     0.0149
+ curvature:  -0.59 expect dE=-0.997E-02 dE for cont linesearch -0.495E-07
+ trial: gam= 0.07240 g(F)=  0.169E-01 g(S)=  0.000E+00 ort = 0.139E-03 (trialstep = 0.104E+01)
+ search vector abs. value=  0.181E-01
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300247394028E+03   -0.30228E-02   -0.80246E-01  6144   0.371E+00    0.517E-01
+DAV:   2    -0.300256783940E+03   -0.93899E-02   -0.10238E-01  6144   0.592E-01    0.182E-01
+DAV:   3    -0.300257216894E+03   -0.43295E-03   -0.24177E-03  6432   0.172E-01    0.174E-01
+DAV:   4    -0.300255973215E+03    0.12437E-02   -0.11065E-03  6240   0.154E-01    0.151E-01
+DAV:   5    -0.300257837575E+03   -0.18644E-02   -0.10142E-03  6528   0.139E-01    0.159E-01
+DAV:   6    -0.300256546996E+03    0.12906E-02   -0.46034E-04  6624   0.955E-02    0.428E-02
+DAV:   7    -0.300256690019E+03   -0.14302E-03   -0.77547E-05  5760   0.210E-02    0.166E-02
+DAV:   8    -0.300256665354E+03    0.24665E-04   -0.70674E-06  3552   0.858E-03    0.119E-02
+DAV:   9    -0.300256669646E+03   -0.42924E-05   -0.32816E-06  3648   0.456E-03
+   5 F= -.30025667E+03 E0= -.30025667E+03  d E =-.123053E-01  mag=     0.0087
+ trial-energy change:   -0.012305  1 .order   -0.013537   -0.017564   -0.009510
+ step:   2.2677(harm=  2.2677)  dis= 0.01229  next Energy=  -300.263516 (dE=-0.192E-01)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300248122037E+03    0.85433E-02   -0.11205E+00  6144   0.438E+00    0.614E-01
+DAV:   2    -0.300261154235E+03   -0.13032E-01   -0.14296E-01  6144   0.699E-01    0.218E-01
+DAV:   3    -0.300262038735E+03   -0.88450E-03   -0.35918E-03  6432   0.218E-01    0.224E-01
+DAV:   4    -0.300260076276E+03    0.19625E-02   -0.18730E-03  6336   0.202E-01    0.190E-01
+DAV:   5    -0.300262163756E+03   -0.20875E-02   -0.13321E-03  6528   0.163E-01    0.173E-01
+DAV:   6    -0.300260912775E+03    0.12510E-02   -0.49756E-04  6672   0.101E-01    0.511E-02
+DAV:   7    -0.300261061811E+03   -0.14904E-03   -0.11290E-04  5952   0.242E-02    0.202E-02
+DAV:   8    -0.300261019504E+03    0.42308E-04   -0.93399E-06  3648   0.100E-02    0.146E-02
+DAV:   9    -0.300261030834E+03   -0.11331E-04   -0.44051E-06  3552   0.529E-03    0.663E-03
+DAV:  10    -0.300261011589E+03    0.19245E-04   -0.18599E-06  3552   0.331E-03    0.272E-03
+DAV:  11    -0.300261021025E+03   -0.94357E-05   -0.53976E-07  3168   0.213E-03
+   6 F= -.30026102E+03 E0= -.30026102E+03  d E =-.166566E-01  mag=     0.0044
+ curvature:  -1.22 expect dE=-0.909E-02 dE for cont linesearch -0.185E-05
+ trial: gam= 0.43448 g(F)=  0.748E-02 g(S)=  0.000E+00 ort = 0.166E-03 (trialstep = 0.129E+01)
+ search vector abs. value=  0.110E-01
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300184009403E+03    0.77002E-01   -0.17727E+00  7872   0.168E+01    0.770E-01
+DAV:   2    -0.300266028834E+03   -0.82019E-01   -0.84248E-01  5376   0.153E+00    0.359E-01
+DAV:   3    -0.300269721305E+03   -0.36925E-02   -0.21944E-02  7008   0.314E-01    0.299E-01
+DAV:   4    -0.300266856286E+03    0.28650E-02   -0.44323E-03  6816   0.272E-01    0.344E-01
+DAV:   5    -0.300269098318E+03   -0.22420E-02   -0.22377E-03  6528   0.232E-01    0.192E-01
+DAV:   6    -0.300268670308E+03    0.42801E-03   -0.61904E-04  6432   0.128E-01    0.905E-02
+DAV:   7    -0.300268690997E+03   -0.20689E-04   -0.15282E-04  6768   0.560E-02    0.268E-02
+DAV:   8    -0.300268612846E+03    0.78150E-04   -0.32978E-05  5472   0.164E-02    0.183E-02
+DAV:   9    -0.300268607338E+03    0.55085E-05   -0.39387E-06  3360   0.508E-03
+   7 F= -.30026861E+03 E0= -.30026861E+03  d E =-.758631E-02  mag=     0.0026
+ trial-energy change:   -0.007586  1 .order   -0.007588   -0.009702   -0.005473
+ step:   2.9486(harm=  2.9486)  dis= 0.00838  next Energy=  -300.272149 (dE=-0.111E-01)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300130353589E+03    0.13826E+00   -0.29671E+00  7776   0.217E+01    0.998E-01
+DAV:   2    -0.300268006309E+03   -0.13765E+00   -0.14119E+00  5376   0.197E+00    0.466E-01
+DAV:   3    -0.300273388515E+03   -0.53822E-02   -0.36879E-02  7008   0.408E-01    0.389E-01
+DAV:   4    -0.300270066003E+03    0.33225E-02   -0.72586E-03  6816   0.348E-01    0.437E-01
+DAV:   5    -0.300272866235E+03   -0.28002E-02   -0.37216E-03  6528   0.321E-01    0.271E-01
+DAV:   6    -0.300272043683E+03    0.82255E-03   -0.11195E-03  6336   0.174E-01    0.113E-01
+DAV:   7    -0.300272100211E+03   -0.56527E-04   -0.24588E-04  7344   0.667E-02    0.346E-02
+DAV:   8    -0.300272020678E+03    0.79533E-04   -0.49550E-05  5760   0.197E-02    0.250E-02
+DAV:   9    -0.300272010506E+03    0.10172E-04   -0.62655E-06  3504   0.610E-03    0.971E-03
+DAV:  10    -0.300271985465E+03    0.25041E-04   -0.22770E-06  2976   0.387E-03    0.256E-03
+DAV:  11    -0.300271987031E+03   -0.15659E-05   -0.45314E-07  2976   0.186E-03
+   8 F= -.30027199E+03 E0= -.30027199E+03  d E =-.109660E-01  mag=     0.0013
+ curvature:  -2.16 expect dE=-0.438E-02 dE for cont linesearch -0.166E-05
+ trial: gam= 0.28284 g(F)=  0.203E-02 g(S)=  0.000E+00 ort =-0.921E-04 (trialstep = 0.162E+01)
+ search vector abs. value=  0.286E-02
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300245959342E+03    0.26026E-01   -0.62721E-01  7680   0.913E+00    0.424E-01
+DAV:   2    -0.300271169344E+03   -0.25210E-01   -0.26235E-01  5952   0.876E-01    0.227E-01
+DAV:   3    -0.300272107924E+03   -0.93858E-03   -0.66944E-03  6336   0.179E-01    0.164E-01
+DAV:   4    -0.300270736537E+03    0.13714E-02   -0.16431E-03  6720   0.172E-01    0.221E-01
+DAV:   5    -0.300272370721E+03   -0.16342E-02   -0.10027E-03  6720   0.155E-01    0.131E-01
+DAV:   6    -0.300271644056E+03    0.72666E-03   -0.30890E-04  6528   0.834E-02    0.682E-02
+DAV:   7    -0.300271813119E+03   -0.16906E-03   -0.83816E-05  7296   0.385E-02    0.184E-02
+DAV:   8    -0.300271742889E+03    0.70230E-04   -0.14621E-05  3840   0.116E-02    0.128E-02
+DAV:   9    -0.300271757434E+03   -0.14545E-04   -0.48122E-06  3264   0.652E-03    0.660E-03
+DAV:  10    -0.300271752366E+03    0.50676E-05   -0.10686E-06  2976   0.258E-03
+   9 F= -.30027175E+03 E0= -.30027175E+03  d E =0.234665E-03  mag=     0.0007
+ trial-energy change:    0.000235  1 .order   -0.001251   -0.003241    0.000738
+ step:   1.3179(harm=  1.3179)  dis= 0.00188  next Energy=  -300.273307 (dE=-0.132E-02)
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300271180238E+03    0.57720E-03   -0.21598E-02  7776   0.170E+00    0.785E-02
+DAV:   2    -0.300272144238E+03   -0.96400E-03   -0.90413E-03  5952   0.163E-01    0.429E-02
+DAV:   3    -0.300272039319E+03    0.10492E-03   -0.23609E-04  6624   0.367E-02    0.324E-02
+DAV:   4    -0.300272328118E+03   -0.28880E-03   -0.59630E-05  5760   0.328E-02    0.392E-02
+DAV:   5    -0.300271995920E+03    0.33220E-03   -0.34080E-05  4992   0.269E-02    0.273E-02
+DAV:   6    -0.300272126319E+03   -0.13040E-03   -0.11771E-05  3552   0.165E-02    0.122E-02
+DAV:   7    -0.300272100400E+03    0.25919E-04   -0.37092E-06  2976   0.704E-03    0.345E-03
+DAV:   8    -0.300272110579E+03   -0.10179E-04   -0.13710E-06  2976   0.288E-03    0.247E-03
+DAV:   9    -0.300272108610E+03    0.19688E-05   -0.21612E-07  2976   0.129E-03
+  10 F= -.30027211E+03 E0= -.30027211E+03  d E =-.121579E-03  mag=     0.0004
+ curvature:  -0.94 expect dE=-0.220E-03 dE for cont linesearch -0.445E-07
+ trial: gam= 0.07169 g(F)=  0.234E-03 g(S)=  0.000E+00 ort =-0.116E-04 (trialstep = 0.156E+01)
+ search vector abs. value=  0.247E-03
+ bond charge predicted
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1    -0.300271441606E+03    0.66897E-03   -0.37243E-02  7680   0.173E+00    0.933E-02
+DAV:   2    -0.300272307916E+03   -0.86631E-03   -0.11115E-02  5952   0.185E-01    0.598E-02
+DAV:   3    -0.300272928696E+03   -0.62078E-03   -0.41856E-04  6864   0.726E-02    0.721E-02
+DAV:   4    -0.300272252306E+03    0.67639E-03   -0.17518E-04  6624   0.601E-02    0.437E-02
+DAV:   5    -0.300272542976E+03   -0.29067E-03   -0.40186E-05  5760   0.297E-02    0.333E-02
+DAV:   6    -0.300272492672E+03    0.50304E-04   -0.16027E-05  4320   0.189E-02    0.135E-02
+DAV:   7    -0.300272490704E+03    0.19676E-05   -0.53191E-06  2976   0.664E-03
+  11 F= -.30027249E+03 E0= -.30027249E+03  d E =-.382094E-03  mag=     0.0003
+ trial-energy change:   -0.000382  1 .order   -0.000228   -0.000364   -0.000092
+ step:   1.6714(harm=  2.0858)  dis= 0.00084  next Energy=  -300.272494 (dE=-0.386E-03)
+ reached required accuracy - stopping structural energy minimisation
+
+real	23m51.404s
+user	0m2.019s
+sys	0m1.238s
+
+VASP finished with exit code 0
+ 
+### Cleaning up files ... removing unnecessary scratch files ...
+ 
+ 
+### Copying back tgz-archive of results to SLURM_SUBMIT_DIR ...
+ 
+Creating result tgz-file '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818.tgz' ...
+00-AlCo2S4.11481305.231224_225818/
+00-AlCo2S4.11481305.231224_225818/IBZKPT
+00-AlCo2S4.11481305.231224_225818/PROCAR
+00-AlCo2S4.11481305.231224_225818/vasprun.xml
+00-AlCo2S4.11481305.231224_225818/DOSCAR
+00-AlCo2S4.11481305.231224_225818/KPOINTS
+00-AlCo2S4.11481305.231224_225818/OUTCAR
+00-AlCo2S4.11481305.231224_225818/WAVECAR
+00-AlCo2S4.11481305.231224_225818/REPORT
+00-AlCo2S4.11481305.231224_225818/CHG
+00-AlCo2S4.11481305.231224_225818/OSZICAR
+00-AlCo2S4.11481305.231224_225818/CHGCAR
+00-AlCo2S4.11481305.231224_225818/EIGENVAL
+00-AlCo2S4.11481305.231224_225818/INCAR
+00-AlCo2S4.11481305.231224_225818/POTCAR
+00-AlCo2S4.11481305.231224_225818/PCDAT
+00-AlCo2S4.11481305.231224_225818/POSCAR
+00-AlCo2S4.11481305.231224_225818/XDATCAR
+00-AlCo2S4.11481305.231224_225818/CONTCAR
+'/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/CONTCAR' -> '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/CONTCAR'
+'/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/OSZICAR' -> '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/OSZICAR'
+'/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/OUTCAR' -> '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/OUTCAR'
+ 
+### Final cleanup: Remove TMP_WORK_DIR ...
+ 
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/IBZKPT'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/PROCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/vasprun.xml'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/DOSCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/KPOINTS'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/OUTCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/WAVECAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/REPORT'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/CHG'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/OSZICAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/CHGCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/EIGENVAL'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/INCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/POTCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/PCDAT'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/POSCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/XDATCAR'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818/CONTCAR'
+removed directory '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818'
+removed '/lustre/home/ul/ul_theochem/ul_bms28/project_A.2.2/spinel/ternary_spinel/data/AlCo2S4/neb/00/00-AlCo2S4.11481305.231224_225818.tgz'
+END_TIME               = 23-12-24 23:22:23 1703456543
+ 
+### Exiting with exit code '0' ...
+ 
+
+======================== JOB EFFICIENCY REPORT ========================
+Job ID: 11481305
+Cluster: justus2
+User/Group: ul_bms28/ul_theochem
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 48
+CPU Utilized: 18:55:02
+CPU Efficiency: 98.12% of 19:16:48 core-walltime
+Job Wall-clock time: 00:24:06
+Memory Utilized: 10.07 GB (estimated maximum)
+Memory Efficiency: 6.14% of 164.06 GB (3.42 GB/core)

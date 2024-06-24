@@ -1,0 +1,38 @@
+{
+    "workflow2": {
+        "m_def": "nomad.datamodel.metainfo.simulation.workflow.ChemicalReaction",
+        "name": "Example chemical reaction",
+            "inputs": [
+                {
+                    "name": "Reactant: RhCu_CH4",
+                    "section": "../upload/archive/mainfile/Figures_01a_S1_S2/ActivationEnergies/RhCu_CH4/OUTCAR#/run/0/calculation/-1"
+                },
+                {
+                    "name": "Reactant: clean RhCu",
+                    "section": "../upload/archive/mainfile/Figures_01a_S1_S2/SegregationEnergies/SAA_Surface/RhCu/OUTCAR#/run/0/calculation/-1"
+                },
+                {
+                    "name": "Transition: RhCu_CH4",
+                    "section": "../upload/archive/mainfile/Figures_01a_S1_S2/ActivationEnergies/RhCu_CH3_H/OUTCAR#/run/0/calculation/-1"
+                },
+                {
+                    "name": "Transition: clean RhCu",
+                    "section": "../upload/archive/mainfile/Figures_01a_S1_S2/SegregationEnergies/SAA_Surface/RhCu/OUTCAR#/run/0/calculation/-1"
+                },
+                {
+                    "name": "Product: CH3",
+                    "section": "../upload/archive/mainfile/Figures_01a_S1_S2/SegregationEnergies/CH3/RhCu_CH3/OUTCAR#/run/0/calculation/-1"
+                },
+                {
+                    "name": "Product: H",
+                    "section": "../upload/archive/mainfile/Figures_01a_S1_S2/SegregationEnergies/H/RhCu_xHfcc/OUTCAR#/run/0/calculation/-1"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "Workflow results",
+                    "section": "/workflow2/results"
+                }
+            ]
+    }
+}

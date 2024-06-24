@@ -1,0 +1,27 @@
+#VASP INCAR file#
+SYSTEM    = AlCo2S4
+ALGO      = Normal
+NCORE     = 12
+EDIFF     = 1e-5
+EDIFFG    = -0.05
+ENCUT     = 520
+IBRION    = 1
+ICHARG    = 1
+ISIF      = 2
+ISMEAR    = -5
+ISPIN     = 2
+LMAXMIX   = 4
+LORBIT    = 11
+LREAL     = Auto
+LWAVE     = False
+LCHARG    = False
+NELM      = 100
+NSW       = 199
+PREC      = Accurate
+SIGMA     = 0.05
+ICHAIN    = 0
+IMAGES    = 4
+SPRING    = -5
+LCLIMB    = .TRUE.
+#Magnetic moment with FM spin alignment#
+MAGMOM    = 7*0.6 16*5.0 32*0.6
