@@ -48,7 +48,7 @@ class NEBWorkflow(SimulationWorkflow):
         return tot_energies
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
-        super().normalize(archive, logger)
+        # super().normalize(archive, logger)
 
         print('hello!')
 
