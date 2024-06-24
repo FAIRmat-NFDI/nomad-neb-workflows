@@ -1,7 +1,7 @@
 import os
-from nomad.datamodel.datamodel import EntryArchive
+
+from nomad.client import parse
 from nomad_neb_workflows.schema_packages.neb import NEBWorkflow
-from nomad.client import normalize_all, parse
 
 from . import LOGGER
 
@@ -12,6 +12,8 @@ def test_workflow_archive_yaml():
     )
     archives = parse(filepath)
     assert len(archives) == 1
-    archive = archives[0]
-    normalize_all(archive)
-    assert archive.workflow2
+    assert isinstance(archives[0].workflow2, NEBWorkflow)
+    neb_workflow = archives[0].workflow2
+    neb_workflow.normalize(archive=archives[0], logger=LOGGER)
+    assert neb_workflow.name == 'NEBWorkflow'
+    assert neb_workflow.message == 'Hello NEBWorkflow!'
