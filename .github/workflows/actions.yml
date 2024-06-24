@@ -48,7 +48,7 @@ jobs:
         python -m build --sdist
     - name: Install the package
       run: |
-        uv pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        uv pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple --system
   ruff-linting:
       runs-on: ubuntu-latest
       steps:
