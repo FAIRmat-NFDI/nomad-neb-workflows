@@ -1,0 +1,26 @@
+diff a/pyproject.toml b/pyproject.toml	(rejected hunks)
+@@ -16,7 +16,7 @@ classifiers = [
+ name = "nomad-neb-workflows"
+ description = "A NOMAD plugin containing the section definitions of a standard Nudged Elastic Band (NEB) workflow."
+ version = "0.1.0"
+-readme = "README.rst"
++readme = "README.md"
+ requires-python = ">=3.9"
+ authors = [
+     { name = "Jose M. Pizarro", email = "jose.pizarro@physik.hu-berlin.de" },
+@@ -25,7 +25,7 @@ maintainers = [
+     { name = "Jose M. Pizarro", email = "jose.pizarro@physik.hu-berlin.de" },
+ ]
+ license = { file = "LICENSE" }
+-dependencies = ["nomad-lab>=1.2.2dev578"]
++dependencies = ["nomad-lab>=1.3.0"]
+ 
+ [project.urls]
+ Repository = "https://github.com/FAIRmat-NFDI/nomad-neb-workflows"
+@@ -112,3 +112,6 @@ where = ["src"]
+ mypackage = "nomad_neb_workflows.schema_packages:mypackage"
+ 
+ 
++[tool.cruft]
++# Avoid updating workflow files, this leads to permissions issues
++skip = [".github/*"]
