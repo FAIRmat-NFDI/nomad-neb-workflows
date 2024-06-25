@@ -16,44 +16,17 @@
 # limitations under the License.
 #
 
-from typing import Optional, List, Tuple
+import os
 
-from nomad import utils
-from nomad.datamodel.context import ClientContext
-from nomad.datamodel.datamodel import EntryArchive, EntryMetadata
-from nomad.utils import generate_entry_id
+from nomad import files, processing, utils
+from nomad.datamodel.context import ServerContext
 
 LOGGER = utils.get_logger(__name__)
 
 
-def get_archives(
-    context: ClientContext,
-    mainfile: str,
-    upload_id: Optional[str] = None,
-    keys: List[str] = [],
-) -> Tuple[EntryArchive, Optional[dict]]:
-    """Prepares a main archive and child archives for parsing."""
-    main_archive = EntryArchive(
-        m_context=context,
-        metadata=EntryMetadata(
-            upload_id=upload_id,
-            mainfile=mainfile,
-            entry_id=generate_entry_id(upload_id=upload_id, mainfile=mainfile),
-        ),
-    )
-    child_archives = None
-    for key in keys:
-        child_archives = {
-            key: EntryArchive(
-                m_context=context,
-                metadata=EntryMetadata(
-                    upload_id=upload_id,
-                    mainfile=mainfile,
-                    mainfile_key=key,
-                    entry_id=generate_entry_id(
-                        upload_id=upload_id, mainfile=mainfile, mainfile_key=key
-                    ),
-                ),
-            )
-        }
-    return main_archive, child_archives
+def server_context(file: str):
+    upload_files = files.StagingUploadFiles('test_upload', create=True)
+    upload = processing.Upload(upload_id='test_upload')
+
+    upload_files.add_rawfiles(file, os.path.dirname(file))
+    return ServerContext(upload=upload)

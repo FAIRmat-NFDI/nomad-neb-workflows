@@ -131,3 +131,6 @@ dmypy.json
 
 # VSCode debugger
 .vscode/launch.json
+
+# volumes
+.volumes
