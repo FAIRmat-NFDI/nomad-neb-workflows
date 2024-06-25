@@ -1,0 +1,881 @@
+current free energy (calc.   0; in scf cycle) : -4330.36532815 Ry
+current free energy (calc.   1; in scf cycle) : -4330.31713987 Ry
+current free energy (calc.   2; in scf cycle) : -4330.43879417 Ry
+current free energy (calc.   3; in scf cycle) : -4330.48591218 Ry
+current free energy (calc.   4; in scf cycle) : -4330.51659098 Ry
+current free energy (calc.   0; in scf cycle) : -4329.90038761 Ry
+current free energy (calc.   1; in scf cycle) : -4329.27829491 Ry
+current free energy (calc.   2; in scf cycle) : -4329.49573794 Ry
+current free energy (calc.   3; in scf cycle) : -4329.62698996 Ry
+current free energy (calc.   4; in scf cycle) : -4329.71628596 Ry
+current free energy (calc.   0; in scf cycle) : -4330.07323152 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90315772 Ry
+current free energy (calc.   2; in scf cycle) : -4329.92109723 Ry
+current free energy (calc.   3; in scf cycle) : -4330.00797065 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07538031 Ry
+current free energy (calc.   0; in scf cycle) : -4330.00414961 Ry
+current free energy (calc.   1; in scf cycle) : -4330.00084584 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00802951 Ry
+current free energy (calc.   3; in scf cycle) : -4330.07698717 Ry
+current free energy (calc.   4; in scf cycle) : -4330.12480806 Ry
+current free energy (calc.   0; in scf cycle) : -4330.02238955 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90898890 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98350026 Ry
+current free energy (calc.   3; in scf cycle) : -4329.97224951 Ry
+current free energy (calc.   4; in scf cycle) : -4329.99493152 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03084076 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90838609 Ry
+current free energy (calc.   2; in scf cycle) : -4329.96145103 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04678711 Ry
+current free energy (calc.   4; in scf cycle) : -4330.08168388 Ry
+current free energy (calc.   0; in scf cycle) : -4330.02436237 Ry
+current free energy (calc.   1; in scf cycle) : -4329.79537035 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99343710 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04605378 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07642299 Ry
+current free energy (calc.   0; in scf cycle) : -4330.02077083 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92807661 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97769895 Ry
+current free energy (calc.   3; in scf cycle) : -4330.02939450 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06621395 Ry
+current free energy (calc.   0; in scf cycle) : -4330.02575876 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90133714 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98450619 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03701884 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07254211 Ry
+current free energy (calc.   0; in scf cycle) : -4330.02446303 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91952487 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98656295 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03829449 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07139384 Ry
+current free energy (calc.   0; in scf cycle) : -4330.02471472 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91720132 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98479518 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03911391 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07375568 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01852458 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90248486 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98238577 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03988122 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07429237 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01803753 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90833972 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98271686 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03720880 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07144846 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01765582 Ry
+current free energy (calc.   1; in scf cycle) : -4329.89798977 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98452039 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03816606 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07273536 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01774707 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90439458 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98603882 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03786334 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07454135 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01794092 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90651964 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98624163 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03813040 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06796085 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01811837 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90673784 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98754024 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03775655 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07033263 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01760286 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90565192 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98806857 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04058898 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06925984 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01775379 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90620635 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97863150 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03861650 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06949595 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01768918 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90620242 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98035216 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03567828 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06930209 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01824303 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90600808 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97997485 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03514161 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06929488 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01841638 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90676136 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98026184 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03534731 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06911663 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01879075 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90622092 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97977856 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03558877 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06918297 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01716848 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90623839 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97964295 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03554523 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06846338 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01360523 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90599502 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97946314 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03625064 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06851464 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01384867 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90580037 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97955955 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03725376 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06838924 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01406500 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90451018 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97933149 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03567050 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06839918 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01422599 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90457638 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97914390 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03684167 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06832771 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01413303 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90388598 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97906666 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03704222 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06827155 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01401240 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90388762 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97908373 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03680518 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06805988 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01406733 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90344358 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97894714 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03490793 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06817937 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01405424 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90353706 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97885419 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03520614 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06818434 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01406302 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90342649 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97886577 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03521483 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06817626 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01400888 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90344682 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97882980 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03513226 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06816706 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01401104 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90339794 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97882005 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03495033 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06816548 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01401486 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90334676 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97879171 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03470676 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06816452 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01400883 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90336907 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97879761 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03464623 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06816241 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01400801 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90337494 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97878495 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03471094 Ry
+current free energy (calc.   4; ionic step) :   -4330.06816067 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01400920 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90336395 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97877766 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03468922 Ry
+current free energy (calc.   0; in scf cycle) : -4330.01400643 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335537 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97877937 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03467931 Ry
+current free energy (calc.   0; ionic step) :   -4330.01400333 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335848 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97877920 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03462118 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335774 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97877976 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03455691 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335907 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97877897 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03453847 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335902 Ry
+current free energy (calc.   2; in scf cycle) : -4329.97877587 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03429121 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335502 Ry
+current free energy (calc.   2; ionic step) :   -4329.97877211 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03431834 Ry
+current free energy (calc.   1; in scf cycle) : -4329.90335340 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03426332 Ry
+current free energy (calc.   1; ionic step) :   -4329.90334971 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03428222 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03426481 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03425144 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03425270 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03424588 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03423338 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03423257 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03423150 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03422988 Ry
+current free energy (calc.   3; ionic step) :   -4330.03422541 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.03675508 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91017049 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98193175 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03695409 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06918802 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03624163 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91002425 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98180407 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03689049 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06915922 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03650348 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91010017 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98184672 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03692388 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06917113 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03645748 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91008242 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186199 Ry
+current free energy (calc.   3; in scf cycle) : -4330.03691190 Ry
+current free energy (calc.   4; in scf cycle) : -4330.06916832 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03647769 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91009202 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186620 Ry
+current free energy (calc.   3; ionic step) :   -4330.03691396 Ry
+current free energy (calc.   4; ionic step) :   -4330.06916958 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03648334 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91008903 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186690 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03648595 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91009076 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186758 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03648647 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91009027 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186715 Ry
+current free energy (calc.   0; in scf cycle) : -4330.03648531 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91009082 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186533 Ry
+current free energy (calc.   0; ionic step) :   -4330.03648429 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91009028 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186591 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91008883 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98186465 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91008897 Ry
+current free energy (calc.   2; ionic step) :   -4329.98186045 Ry
+current free energy (calc.   1; ionic step) :   -4329.91008577 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.06182004 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91959930 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98691878 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04140037 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07069926 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06068923 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91915804 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98673358 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04122459 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07066407 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06137065 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91940867 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98678027 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04128873 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07067247 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06113990 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91941292 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98682705 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04127652 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07067416 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06122681 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942337 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98682185 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04128646 Ry
+current free energy (calc.   4; ionic step) :   -4330.07067479 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123536 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942646 Ry
+current free energy (calc.   2; in scf cycle) : -4329.98682413 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04129527 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123817 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942835 Ry
+current free energy (calc.   2; ionic step) :   -4329.98682264 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04129777 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123715 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942865 Ry
+current free energy (calc.   3; ionic step) :   -4330.04129308 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06122158 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942593 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123007 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942705 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123325 Ry
+current free energy (calc.   1; in scf cycle) : -4329.91942551 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123509 Ry
+current free energy (calc.   1; ionic step) :   -4329.91942288 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123706 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123975 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123645 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123809 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123877 Ry
+current free energy (calc.   0; in scf cycle) : -4330.06123663 Ry
+current free energy (calc.   0; ionic step) :   -4330.06123512 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.08693675 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92930702 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99269244 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04652113 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07228791 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08517994 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92834270 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99254536 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04634970 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07224521 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08630189 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92904457 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99262766 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04640569 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07226077 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08597863 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92889431 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99261171 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04639444 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07225090 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08590639 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897907 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99261001 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04640615 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07225754 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08598503 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92898024 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99261474 Ry
+current free energy (calc.   3; in scf cycle) : -4330.04640547 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07225667 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08597613 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897856 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99261483 Ry
+current free energy (calc.   3; ionic step) :   -4330.04640266 Ry
+current free energy (calc.   4; ionic step) :   -4330.07225611 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08597220 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897875 Ry
+current free energy (calc.   2; ionic step) :   -4329.99261154 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08596533 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897564 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08597577 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897910 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08595132 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897922 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08595322 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897531 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08594826 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897778 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08594591 Ry
+current free energy (calc.   1; in scf cycle) : -4329.92897636 Ry
+current free energy (calc.   0; in scf cycle) : -4330.08595033 Ry
+current free energy (calc.   1; ionic step) :   -4329.92897366 Ry
+current free energy (calc.   0; ionic step) :   -4330.08595294 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.10402586 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93822275 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99870982 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05182306 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07376578 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10160155 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93693733 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99845949 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05163419 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07370711 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10284109 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93768419 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99854124 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05172952 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07372562 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10272417 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93771135 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99854158 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05172056 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07371450 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10247259 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93768610 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99854177 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05171093 Ry
+current free energy (calc.   4; ionic step) :   -4330.07371818 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10261648 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93771915 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99855210 Ry
+current free energy (calc.   3; ionic step) :   -4330.05171545 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10260975 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93772174 Ry
+current free energy (calc.   2; in scf cycle) : -4329.99855797 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10261584 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93772285 Ry
+current free energy (calc.   2; ionic step) :   -4329.99855592 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10259386 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93772571 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10259304 Ry
+current free energy (calc.   1; in scf cycle) : -4329.93772665 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10258157 Ry
+current free energy (calc.   1; ionic step) :   -4329.93772504 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10258116 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10258136 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10258090 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10258228 Ry
+current free energy (calc.   0; ionic step) :   -4330.10258431 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.10494219 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94326020 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00413157 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05696845 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07494334 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10348452 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94184586 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00384127 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05666450 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07481344 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10410569 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94261897 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00397313 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05680623 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07486019 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10406498 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94264118 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00395817 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05678343 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07486846 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10408759 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94262071 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00396833 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05679511 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07487064 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10409745 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94264404 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00397003 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05679263 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07486892 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10410193 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94265929 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00397051 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05679395 Ry
+current free energy (calc.   4; ionic step) :   -4330.07486893 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10410164 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94266672 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00397125 Ry
+current free energy (calc.   3; in scf cycle) : -4330.05679433 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10410553 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94266760 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00397131 Ry
+current free energy (calc.   3; ionic step) :   -4330.05678971 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10410580 Ry
+current free energy (calc.   1; ionic step) :   -4329.94266786 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00397098 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10410472 Ry
+current free energy (calc.   2; ionic step) :   -4330.00397059 Ry
+current free energy (calc.   0; ionic step) :   -4330.10411036 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.09959614 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94458431 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00954006 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06168341 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07575319 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09897514 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94417136 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00928616 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06139838 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07570036 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09925265 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94438970 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00935171 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06150248 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07570924 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09925100 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94418085 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00936038 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06143983 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07568933 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09926183 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94429592 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00937579 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06147129 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07570189 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09926503 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94430272 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00937918 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06146264 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07570146 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09926898 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94430737 Ry
+current free energy (calc.   2; ionic step) :   -4330.00938178 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06146897 Ry
+current free energy (calc.   4; ionic step) :   -4330.07570020 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09926857 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94430905 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06146638 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09927088 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431042 Ry
+current free energy (calc.   3; ionic step) :   -4330.06146196 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09927151 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431156 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09927238 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431228 Ry
+current free energy (calc.   0; in scf cycle) : -4330.09927245 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431305 Ry
+current free energy (calc.   0; ionic step) :   -4330.09927043 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431230 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431419 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94431100 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94430912 Ry
+current free energy (calc.   1; ionic step) :   -4329.94431014 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.10087621 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94464090 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00971074 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06165162 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07576338 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10081041 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94461814 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00966949 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06161116 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07574239 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10083280 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94462206 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00968824 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06163231 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07574906 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10084454 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94462855 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00969054 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06163464 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07574825 Ry
+current free energy (calc.   0; ionic step) :   -4330.10084339 Ry
+current free energy (calc.   1; ionic step) :   -4329.94462618 Ry
+current free energy (calc.   2; in scf cycle) : -4330.00968797 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06163040 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07575168 Ry
+current free energy (calc.   2; ionic step) :   -4330.00968584 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06163348 Ry
+current free energy (calc.   4; ionic step) :   -4330.07574675 Ry
+current free energy (calc.   3; ionic step) :   -4330.06162999 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.10346061 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94526158 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01027992 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06196683 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07587534 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10341290 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94516294 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01024842 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06191915 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07579081 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10343252 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94520415 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01026555 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06193837 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07580015 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10343266 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94521261 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01026510 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06194138 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07582782 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10343450 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94520998 Ry
+current free energy (calc.   2; ionic step) :   -4330.01026016 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06194344 Ry
+current free energy (calc.   4; ionic step) :   -4330.07583322 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10343438 Ry
+current free energy (calc.   1; ionic step) :   -4329.94520516 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06194219 Ry
+current free energy (calc.   0; ionic step) :   -4330.10342908 Ry
+current free energy (calc.   3; ionic step) :   -4330.06193920 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.10642454 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94604555 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01116652 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06245465 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07595330 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10624995 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94587614 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01098929 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06233486 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07593934 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10631182 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94591260 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01109305 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06238911 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07594399 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10632880 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594807 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01110175 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06239169 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07594277 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10632955 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594115 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01106864 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06238950 Ry
+current free energy (calc.   4; ionic step) :   -4330.07593981 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10632735 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594403 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01108739 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06238987 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10632860 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594565 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01108961 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06238956 Ry
+current free energy (calc.   0; ionic step) :   -4330.10632262 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594534 Ry
+current free energy (calc.   2; ionic step) :   -4330.01108666 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06239008 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594541 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06238879 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594588 Ry
+current free energy (calc.   3; ionic step) :   -4330.06238496 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594524 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594474 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94594404 Ry
+current free energy (calc.   1; ionic step) :   -4329.94593882 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.10919648 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94678258 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01216410 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06301360 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07607695 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10897809 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94667122 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01209770 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06286091 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07604720 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10906386 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94671862 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01212415 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06289785 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07605460 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907633 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94672933 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01212929 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292936 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07601300 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10908001 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94672571 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01212837 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292597 Ry
+current free energy (calc.   4; ionic step) :   -4330.07605549 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907702 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94672589 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01212498 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292620 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907754 Ry
+current free energy (calc.   1; ionic step) :   -4329.94672382 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01212664 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292621 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907551 Ry
+current free energy (calc.   2; ionic step) :   -4330.01212326 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292368 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907542 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292643 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907322 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06292362 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907508 Ry
+current free energy (calc.   3; ionic step) :   -4330.06291920 Ry
+current free energy (calc.   0; in scf cycle) : -4330.10907503 Ry
+current free energy (calc.   0; ionic step) :   -4330.10906928 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.11165673 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94755086 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01341366 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06358983 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07620405 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11153641 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94748277 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01332229 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06350548 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07614320 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11160725 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94748038 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01338055 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06353591 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07617648 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11159865 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94747424 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01338650 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06354427 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07617358 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11159091 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94748398 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01339693 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06354602 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07617707 Ry
+current free energy (calc.   0; ionic step) :   -4330.11159726 Ry
+current free energy (calc.   1; ionic step) :   -4329.94748445 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01334054 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06354627 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07617651 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01338230 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06354696 Ry
+current free energy (calc.   4; ionic step) :   -4330.07617193 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01336734 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06354548 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01337524 Ry
+current free energy (calc.   3; ionic step) :   -4330.06353973 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01337474 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01337457 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01337643 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01337575 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01337388 Ry
+current free energy (calc.   2; ionic step) :   -4330.01336945 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.11405790 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94828029 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01486454 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06429998 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07635606 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11394853 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94814805 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01473905 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06420353 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07624630 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11400079 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94820198 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01480459 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06423582 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07628338 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11399880 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94820795 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01480967 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06423968 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07629827 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11399877 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94821240 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01480973 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424536 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07629490 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11400060 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94821306 Ry
+current free energy (calc.   2; ionic step) :   -4330.01480716 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424606 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07629217 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11400083 Ry
+current free energy (calc.   1; ionic step) :   -4329.94821137 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424644 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07629383 Ry
+current free energy (calc.   0; ionic step) :   -4330.11399925 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424606 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07629244 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424653 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07629287 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424598 Ry
+current free energy (calc.   4; ionic step) :   -4330.07628586 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06424523 Ry
+current free energy (calc.   3; ionic step) :   -4330.06424389 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.11613586 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94911932 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01649761 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06503571 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07644450 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11607034 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94882181 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01637121 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06499830 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07636830 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11610175 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94895832 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01643214 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06500836 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07639392 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11610046 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94899695 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01642716 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06500901 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07639544 Ry
+current free energy (calc.   0; ionic step) :   -4330.11610431 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94896228 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01643366 Ry
+current free energy (calc.   3; ionic step) :   -4330.06500608 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07640421 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94897685 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01643149 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07640308 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94897767 Ry
+current free energy (calc.   2; ionic step) :   -4330.01643025 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07640287 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94897780 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07640238 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94897700 Ry
+current free energy (calc.   4; ionic step) :   -4330.07639660 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94897732 Ry
+current free energy (calc.   1; ionic step) :   -4329.94897290 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.11753939 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95004249 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01852955 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06596744 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07656386 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11746224 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94989633 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01836209 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06587604 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07648027 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11750108 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94991896 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01845190 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06590036 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07650848 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11749552 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94996071 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01845036 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06591432 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07651799 Ry
+current free energy (calc.   0; ionic step) :   -4330.11750034 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94996042 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01844764 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06591465 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07651868 Ry
+current free energy (calc.   1; in scf cycle) : -4329.94996183 Ry
+current free energy (calc.   2; in scf cycle) : -4330.01844823 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06591375 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07652155 Ry
+current free energy (calc.   1; ionic step) :   -4329.94995810 Ry
+current free energy (calc.   2; ionic step) :   -4330.01844621 Ry
+current free energy (calc.   3; ionic step) :   -4330.06591107 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07652279 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07652331 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07652369 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07651867 Ry
+current free energy (calc.   4; ionic step) :   -4330.07651962 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.11735428 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95135347 Ry
+current free energy (calc.   2; in scf cycle) : -4330.02102887 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06704305 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07666191 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11727720 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95120826 Ry
+current free energy (calc.   2; in scf cycle) : -4330.02079586 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06700442 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07662067 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11731898 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95127364 Ry
+current free energy (calc.   2; in scf cycle) : -4330.02092462 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06701818 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07663322 Ry
+current free energy (calc.   0; in scf cycle) : -4330.11731262 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95128075 Ry
+current free energy (calc.   2; in scf cycle) : -4330.02092490 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06701234 Ry
+current free energy (calc.   4; in scf cycle) : -4330.07664099 Ry
+current free energy (calc.   0; ionic step) :   -4330.11732041 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95127423 Ry
+current free energy (calc.   2; in scf cycle) : -4330.02091514 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06701599 Ry
+current free energy (calc.   4; ionic step) :   -4330.07663543 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95127782 Ry
+current free energy (calc.   2; ionic step) :   -4330.02091551 Ry
+current free energy (calc.   3; in scf cycle) : -4330.06701443 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95127811 Ry
+current free energy (calc.   3; ionic step) :   -4330.06701482 Ry
+current free energy (calc.   1; in scf cycle) : -4329.95127687 Ry
+current free energy (calc.   1; ionic step) :   -4329.95127321 Ry
+
+current free energy (calc.   0; in scf cycle) : -4330.11600438 Ry

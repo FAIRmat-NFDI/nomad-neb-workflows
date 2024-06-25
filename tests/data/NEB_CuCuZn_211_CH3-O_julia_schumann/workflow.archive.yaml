@@ -1,0 +1,82 @@
+workflow2:
+  m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  inputs:
+    - name: Initial state
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb0.traj#/run/0/system/-1'
+    - name: Final state
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb6.traj#/run/0/system/-1'
+  outputs:
+    - name: NEB1 splitting of C-O bond in CH3O
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb1.traj#/run/0/calculation/-1'
+    - name: NEB2 splitting of C-O bond in CH3O
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb2.traj#/run/0/calculation/-1'
+    - name: NEB3 splitting of C-O bond in CH3O
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb3.traj#/run/0/calculation/-1'
+    - name: NEB4 splitting of C-O bond in CH3O
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb4.traj#/run/0/calculation/-1'
+    - name: NEB5 splitting of C-O bond in CH3O
+      section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb5.traj#/run/0/calculation/-1'
+  tasks:
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb0.traj#/workflow2'
+      name: SCF Simulation
+      inputs:
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb0.traj#/run/0/system/-1'
+      outputs:
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb0.traj#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb1.traj#/workflow2'
+      name: NEB1 splitting of C-O bond in CH3O
+      inputs:
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb1.traj#/run/0/system/-1'
+      outputs:
+        - name: Output NEB1 splitting of C-O bond in CH3O
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb1.traj#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb2.traj#/workflow2'
+      name: NEB2 splitting of C-O bond in CH3O
+      inputs:
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb2.traj#/run/0/system/-1'
+      outputs:
+        - name: Output NEB2 splitting of C-O bond in CH3O
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb2.traj#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb3.traj#/workflow2'
+      name: NEB3 splitting of C-O bond in CH3O
+      inputs:
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb3.traj#/run/0/system/-1'
+      outputs:
+        - name: Output NEB3 splitting of C-O bond in CH3O
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb3.traj#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb4.traj#/workflow2'
+      name: NEB4 splitting of C-O bond in CH3O
+      inputs:
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb4.traj#/run/0/system/-1'
+      outputs:
+        - name: Output NEB4 splitting of C-O bond in CH3O
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb4.traj#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb5.traj#/workflow2'
+      name: NEB5 splitting of C-O bond in CH3O
+      inputs:
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb5.traj#/run/0/system/-1'
+      outputs:
+        - name: Output NEB5 splitting of C-O bond in CH3O
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb5.traj#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb6.traj#/workflow2'
+      name: SCF Simulation
+      inputs:
+        - name: Final state
+          section:  '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb6.traj#/run/0/system/-1'
+      outputs:
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/NEB_CuCuZn_211CH3-O/neb6.traj#/run/0/calculation/-1'
