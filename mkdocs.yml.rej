@@ -1,0 +1,9 @@
+diff a/mkdocs.yml b/mkdocs.yml	(rejected hunks)
+@@ -3,6 +3,7 @@ site_description: A NOMAD plugin containing the section definitions of a standar
+ site_author: Jose M. Pizarro
+ 
+ repo_url: https://github.com/FAIRmat-NFDI/nomad-neb-workflows
++edit_uri: ""
+ 
+ nav:
+   - Home: index.md
