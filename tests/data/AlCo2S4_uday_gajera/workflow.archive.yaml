@@ -1,83 +1,94 @@
 workflow2:
   m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
   inputs:
-    - name: Input structure for reference image
-      section:  '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
-    - name: Input structure for image 2
-      section:  '../upload/archive/mainfile/AlCo2S4/neb/01/OUTCAR#/run/0/system/-1'
-    - name: Input structure for image 3
-      section:  '../upload/archive/mainfile/AlCo2S4/neb/02/OUTCAR#/run/0/system/-1'
-    - name: Input structure for image 4
-      section:  '../upload/archive/mainfile/AlCo2S4/neb/03/OUTCAR#/run/0/system/-1'
-    - name: Input structure for image 5
-      section:  '../upload/archive/mainfile/AlCo2S4/neb/04/OUTCAR#/run/0/system/-1'
-    - name: Input structure for image 6
-      section:  '../upload/archive/mainfile/AlCo2S4/neb/05/OUTCAR#/run/0/system/-1'
+    - name: Initial structure
+      section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/system/-1'
   outputs:
-    - name: Output for reference image
+    - name: Output octahedral removal from position [0.0, 0.5, 0.5]
       section: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/calculation/-1'
-    - name: Output for image 2
+    - name: Output octahedral removal from position 2
       section: '../upload/archive/mainfile/AlCo2S4/neb/01/OUTCAR#/run/0/calculation/-1'
-    - name: Output for image 3
+    - name: Output octahedral removal from position 3
       section: '../upload/archive/mainfile/AlCo2S4/neb/02/OUTCAR#/run/0/calculation/-1'
-    - name: Output for image 4
+    - name: Output octahedral removal from position 4
       section: '../upload/archive/mainfile/AlCo2S4/neb/03/OUTCAR#/run/0/calculation/-1'
-    - name: Output for image 5
+    - name: Output octahedral removal from position 5
       section: '../upload/archive/mainfile/AlCo2S4/neb/04/OUTCAR#/run/0/calculation/-1'
-    - name: Output for image 6
+    - name: Output octahedral removal from position 6
       section: '../upload/archive/mainfile/AlCo2S4/neb/05/OUTCAR#/run/0/calculation/-1'
   tasks:
     - m_def: nomad.datamodel.metainfo.workflow.TaskReference
-      task: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/workflow2'
-      name: Reference image simulation
+      task: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/workflow2'
+      name: SCF Simulation
       inputs:
-        - name: Input structure for reference image
-          section:  '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
+        - name: Initial structure
+          section:  '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/system/-1'
       outputs:
-        - name: Output for reference image
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
+    - m_def: nomad.datamodel.metainfo.workflow.TaskReference
+      task: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/workflow2'
+      name: Octahedral removal from position [0.0, 0.5, 0.5] Simulation
+      inputs:
+        - name: Input structure
+          section:  '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
+      outputs:
+        - name: Output simulation
           section: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/calculation/-1'
     - m_def: nomad.datamodel.metainfo.workflow.TaskReference
       task: '../upload/archive/mainfile/AlCo2S4/neb/01/OUTCAR#/workflow2'
-      name: Image 2 simulation
+      name: Octahedral removal from position 2 Simulation
       inputs:
-        - name: Input structure for image 2
+        - name: Input structure
           section:  '../upload/archive/mainfile/AlCo2S4/neb/01/OUTCAR#/run/0/system/-1'
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
       outputs:
-        - name: Output for image 2
+        - name: Output simulation
           section: '../upload/archive/mainfile/AlCo2S4/neb/01/OUTCAR#/run/0/calculation/-1'
     - m_def: nomad.datamodel.metainfo.workflow.TaskReference
       task: '../upload/archive/mainfile/AlCo2S4/neb/02/OUTCAR#/workflow2'
-      name: Image 3 simulation
+      name: Octahedral removal from position 3 Simulation
       inputs:
-        - name: Input structure for image 3
+        - name: Input structure
           section:  '../upload/archive/mainfile/AlCo2S4/neb/02/OUTCAR#/run/0/system/-1'
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
       outputs:
-        - name: Output for image 3
+        - name: Output simulation
           section: '../upload/archive/mainfile/AlCo2S4/neb/02/OUTCAR#/run/0/calculation/-1'
     - m_def: nomad.datamodel.metainfo.workflow.TaskReference
       task: '../upload/archive/mainfile/AlCo2S4/neb/03/OUTCAR#/workflow2'
-      name: Image 4 simulation
+      name: Octahedral removal from position 4 Simulation
       inputs:
-        - name: Input structure for image 4
+        - name: Input structure
           section:  '../upload/archive/mainfile/AlCo2S4/neb/03/OUTCAR#/run/0/system/-1'
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
       outputs:
-        - name: Output for image 4
+        - name: Output simulation
           section: '../upload/archive/mainfile/AlCo2S4/neb/03/OUTCAR#/run/0/calculation/-1'
     - m_def: nomad.datamodel.metainfo.workflow.TaskReference
       task: '../upload/archive/mainfile/AlCo2S4/neb/04/OUTCAR#/workflow2'
-      name: Image 5 simulation
+      name: Octahedral removal from position 5 Simulation
       inputs:
-        - name: Input structure for image 5
+        - name: Input structure
           section:  '../upload/archive/mainfile/AlCo2S4/neb/04/OUTCAR#/run/0/system/-1'
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
       outputs:
-        - name: Output for image 5
+        - name: Output simulation
           section: '../upload/archive/mainfile/AlCo2S4/neb/04/OUTCAR#/run/0/calculation/-1'
     - m_def: nomad.datamodel.metainfo.workflow.TaskReference
       task: '../upload/archive/mainfile/AlCo2S4/neb/05/OUTCAR#/workflow2'
-      name: Image 6 simulation
+      name: Octahedral removal from position 6 Simulation
       inputs:
-        - name: Input structure for image 6
+        - name: Input structure
           section:  '../upload/archive/mainfile/AlCo2S4/neb/05/OUTCAR#/run/0/system/-1'
+        - name: Output scf simulation
+          section: '../upload/archive/mainfile/AlCo2S4/OUTCAR#/run/0/calculation/-1'
       outputs:
-        - name: Output for image 6
+        - name: Output simulation
           section: '../upload/archive/mainfile/AlCo2S4/neb/05/OUTCAR#/run/0/calculation/-1'
