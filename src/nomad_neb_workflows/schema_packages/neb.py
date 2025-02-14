@@ -9,7 +9,8 @@ if TYPE_CHECKING:
 
 from nomad.config import config
 from nomad.metainfo import Quantity, SchemaPackage, Quantity
-from simulationworkflowschema import SimulationWorkflow
+from simulationworkflowschema.general import SimulationWorkflow
+from nomad.datamodel.metainfo.plot import PlotSection, PlotlyFigure
 
 configuration = config.get_plugin_entry_point(
     'nomad_neb_workflows.schema_packages:nomad_neb_workflows_plugin'
@@ -18,7 +19,7 @@ configuration = config.get_plugin_entry_point(
 m_package = SchemaPackage()
 
 
-class NEBWorkflow(SimulationWorkflow):
+class NEBWorkflow(SimulationWorkflow, PlotSection):
     """
     A base section used to define Nudged Elastic Band (NEB) workflows. These workflows are used to find the
     minimum energy path and transition states between two stable states in a system. It involves interpolating
