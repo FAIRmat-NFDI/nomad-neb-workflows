@@ -99,12 +99,21 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
         try:
+            # Extract system name from input structure (first task input path)
+            """if self.tasks and self.tasks[0].inputs:
+                input_path = self.tasks[0].inputs[0].section  
+                print(input_path)
+                # Example: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
+                system_name = input_path.split('/')[-5]  # Extract "AlCo2S4" from path
+                print(system_name)
+            else:
+                system_name = "Unknown System" """
+
+            # Dynamically set entry name
             archive.metadata.entry_type = 'NEB'
-            archive.metadata.entry_name = 'NEB test'
+            archive.metadata.entry_name = "NEB Calculation"
         except Exception:
-            logger.error(
-                'Could not set archive.metadata quantities entry_type and entry_name.'
-            )
+            logger.error('Could not set archive.metadata quantities entry_type and entry_name.')
 
         # Generate NEB energy plot using Plotly Express and store it in `neb_energy_plot`
         try:
@@ -119,9 +128,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
                 # Create positions as 1, 2, 3, ..., based on the number of energy entries
                 positions = list(range(1, len(magnitudes) + 1))
-                print(positions)
-                print(magnitudes)
-                print(unit)
 
                 # Use Plotly Express to create the plot
                 fig = px.scatter(
