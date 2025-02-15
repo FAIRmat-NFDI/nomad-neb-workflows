@@ -129,6 +129,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     y=magnitudes, 
                     labels={'x': 'Image Position', 'y': f'Energy Difference ({unit})'}
                 )
+                fig.add_scatter(x=positions, y=magnitudes, mode='lines', line=dict(shape="linear"))
+
                 fig.update_layout(
                     title='NEB Energy Profile',
                     template='plotly_white'
