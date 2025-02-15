@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Optional
 import numpy as np
 import pint
 import plotly.graph_objects as go  # Import Plotly for plotting
+import plotly.express as px
 
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import EntryArchive
@@ -45,6 +46,11 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         """,
     )
 
+    neb_energy_plot = Quantity(
+        type=PlotlyFigure,
+        description="Plotly figure showing energy vs. path for NEB workflow."
+    )
+
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
     ) -> Optional[pint.Quantity]:
@@ -72,11 +78,15 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         # Append the energy differences of the images w.r.t. the reference of energies
         tot_energies = []
         for output in self.outputs:
-            # Something to add: add condition here to check if output.section.energy.total.value.m exists or not
-            tot_energies.append(output.section.energy.total.value.m - energy_reference)
+            if output.section.energy.total.value is not None:
+                tot_energies.append(output.section.energy.total.value.m - energy_reference)
+            else:
+                tot_energies.append(None)  # Handle missing values safely
 
         # Return a pint.Quantity (list of magnitudes with associated unit)
         return tot_energies * energy_units
+
+    import plotly.express as px  # Use Plotly Express instead of go.Figure
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
@@ -89,7 +99,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
         try:
-            # TODO: improve this naming
             archive.metadata.entry_type = 'NEB'
             archive.metadata.entry_name = 'NEB test'
         except Exception:
@@ -97,49 +106,39 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 'Could not set archive.metadata quantities entry_type and entry_name.'
             )
 
-    def plot_energy_vs_position(self, logger: 'BoundLogger') -> None:
-        """
-        Creates an interactive Plotly plot of the energy differences vs. the image positions.
-        The x-axis corresponds to the image positions (1, 2, 3, ...) and the y-axis to the energy differences.
-
-        Args:
-            logger (BoundLogger): The logger to log messages.
-        """
-        if self.total_energy_differences is None:
-            logger.error(
-                'No energy differences available to plot. Make sure normalization has been run.'
-            )
-            return
-
+        # Generate NEB energy plot using Plotly Express and store it in `neb_energy_plot`
         try:
-            # If the energies are stored as a pint.Quantity, extract magnitude and unit
-            if hasattr(self.total_energy_differences, 'm'):
-                magnitudes = self.total_energy_differences.m
-                unit = self.total_energy_differences.u
-            else:
-                magnitudes = self.total_energy_differences
-                unit = ''
+            if self.total_energy_differences is not None and len(self.total_energy_differences) > 0:
+                # If energies are stored as pint.Quantity, extract magnitude and unit
+                if hasattr(self.total_energy_differences, 'm'):
+                    magnitudes = self.total_energy_differences.m
+                    unit = str(self.total_energy_differences.u)
+                else:
+                    magnitudes = self.total_energy_differences
+                    unit = 'eV'  # Default unit if missing
 
-            # Create positions as 1, 2, 3, ..., based on the number of energy entries
-            positions = list(range(1, len(magnitudes) + 1))
+                # Create positions as 1, 2, 3, ..., based on the number of energy entries
+                positions = list(range(1, len(magnitudes) + 1))
+                print(positions)
+                print(magnitudes)
+                print(unit)
 
-            # Create the interactive plot using Plotly
-            fig = go.Figure(
-                data=go.Scatter(
-                    x=positions, y=magnitudes, mode='lines+markers', marker=dict(size=8)
+                # Use Plotly Express to create the plot
+                fig = px.scatter(
+                    x=positions, 
+                    y=magnitudes, 
+                    labels={'x': 'Image Position', 'y': f'Energy Difference ({unit})'}
                 )
-            )
-            fig.update_layout(
-                title='NEB Energy Profile',
-                xaxis_title='Image Position',
-                yaxis_title=f'Energy Difference ({unit})'
-                if unit
-                else 'Energy Difference',
-                template='plotly_white',
-            )
-            fig.show()
+                fig.update_layout(
+                    title='NEB Energy Profile',
+                    template='plotly_white'
+                )
+
+                # Convert to NOMAD-compatible PlotlyFigure
+                self.figures.append(PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json()))
         except Exception as e:
-            logger.error('Error while plotting energy vs. position: ' + str(e))
+            logger.error(f'Error while generating NEB energy plot: {e}')
 
 
 m_package.__init_metainfo__()
+
