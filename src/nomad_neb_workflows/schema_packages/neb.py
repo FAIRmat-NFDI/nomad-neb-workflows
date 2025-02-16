@@ -100,7 +100,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         try:
             # Extract system name from input structure (first task input path)
-            """if self.tasks and self.tasks[0].inputs:
+            """ if self.tasks and self.tasks[0].inputs:
                 input_path = self.tasks[0].inputs[0].section  
                 print(input_path)
                 # Example: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
