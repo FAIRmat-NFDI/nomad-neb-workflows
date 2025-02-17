@@ -48,7 +48,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
     neb_energy_plot = Quantity(
         type=PlotlyFigure,
-        description="Plotly figure showing energy vs. path for NEB workflow."
+        description='Plotly figure showing energy vs. path for NEB workflow.',
     )
 
     def extract_total_energy_differences(
@@ -79,7 +79,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         tot_energies = []
         for output in self.outputs:
             if output.section.energy.total.value is not None:
-                tot_energies.append(output.section.energy.total.value.m - energy_reference)
+                tot_energies.append(
+                    output.section.energy.total.value.m - energy_reference
+                )
             else:
                 tot_energies.append(None)  # Handle missing values safely
 
@@ -100,24 +102,29 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         try:
             # Extract system name from input structure (first task input path)
-            """ if self.tasks and self.tasks[0].inputs:
-                input_path = self.tasks[0].inputs[0].section  
-                print(input_path)
-                # Example: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
-                system_name = input_path.split('/')[-5]  # Extract "AlCo2S4" from path
-                print(system_name)
-            else:
-                system_name = "Unknown System" """
+            # if self.tasks and self.tasks[0].inputs:
+            #     input_path = self.tasks[0].inputs[0].section
+            #     print(input_path)
+            #     # Example: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
+            #     system_name = input_path.split('/')[-5]  # Extract "AlCo2S4" from path
+            #     print(system_name)
+            # else:
+            #     system_name = "Unknown System"
 
             # Dynamically set entry name
             archive.metadata.entry_type = 'NEB'
-            archive.metadata.entry_name = "NEB Calculation"
+            archive.metadata.entry_name = 'NEB Calculation'
         except Exception:
-            logger.error('Could not set archive.metadata quantities entry_type and entry_name.')
+            logger.error(
+                'Could not set archive.metadata quantities entry_type and entry_name.'
+            )
 
         # Generate NEB energy plot using Plotly Express and store it in `neb_energy_plot`
         try:
-            if self.total_energy_differences is not None and len(self.total_energy_differences) > 0:
+            if (
+                self.total_energy_differences is not None
+                and len(self.total_energy_differences) > 0
+            ):
                 # If energies are stored as pint.Quantity, extract magnitude and unit
                 if hasattr(self.total_energy_differences, 'm'):
                     magnitudes = self.total_energy_differences.m
@@ -131,22 +138,22 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
                 # Use Plotly Express to create the plot
                 fig = px.scatter(
-                    x=positions, 
-                    y=magnitudes, 
-                    labels={'x': 'Image Position', 'y': f'Energy Difference ({unit})'}
+                    x=positions,
+                    y=magnitudes,
+                    labels={'x': 'Image Position', 'y': f'Energy Difference ({unit})'},
                 )
-                fig.add_scatter(x=positions, y=magnitudes, mode='lines', line=dict(shape="linear"))
+                fig.add_scatter(
+                    x=positions, y=magnitudes, mode='lines', line=dict(shape='linear')
+                )
 
-                fig.update_layout(
-                    title='NEB Energy Profile',
-                    template='plotly_white'
-                )
+                fig.update_layout(title='NEB Energy Profile', template='plotly_white')
 
                 # Convert to NOMAD-compatible PlotlyFigure
-                self.figures.append(PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json()))
+                self.figures.append(
+                    PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json())
+                )
         except Exception as e:
             logger.error(f'Error while generating NEB energy plot: {e}')
 
 
 m_package.__init_metainfo__()
-

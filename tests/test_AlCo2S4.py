@@ -22,6 +22,7 @@ from nomad_neb_workflows.schema_packages.neb import NEBWorkflow
 
 from .conftest import LOGGER, get_archives
 
+
 def test_workflow_archive_yaml():
     mainfile = 'tests/data/AlCo2S4_uday_gajera/workflow.archive.yaml'
 
@@ -53,5 +54,4 @@ def test_workflow_archive_yaml():
     try:
         neb_workflow.plot_energy_vs_position(logger=LOGGER)
     except Exception as e:
-        assert False, f"plot_energy_vs_position raised an exception: {e}"
-
+        assert False, f'plot_energy_vs_position raised an exception: {e}'
