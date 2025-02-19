@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 import numpy as np
 import pint
-import plotly.graph_objects as go  # Import Plotly for plotting
 import plotly.express as px
 
 if TYPE_CHECKING:
@@ -46,11 +45,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         """,
     )
 
-    neb_energy_plot = Quantity(
-        type=PlotlyFigure,
-        description='Plotly figure showing energy vs. path for NEB workflow.',
-    )
-
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
     ) -> Optional[pint.Quantity]:
@@ -88,8 +82,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         # Return a pint.Quantity (list of magnitudes with associated unit)
         return tot_energies * energy_units
 
-    import plotly.express as px  # Use Plotly Express instead of go.Figure
-
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
 
@@ -119,7 +111,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 'Could not set archive.metadata quantities entry_type and entry_name.'
             )
 
-        # Generate NEB energy plot using Plotly Express and store it in `neb_energy_plot`
+        # Generate NEB energy plot using Plotly Express and store it in self.figures
         try:
             if (
                 self.total_energy_differences is not None
