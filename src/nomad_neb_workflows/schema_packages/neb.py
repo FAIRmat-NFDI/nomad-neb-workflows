@@ -119,6 +119,20 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     magnitudes = self.total_energy_differences
                     unit = 'eV'  # Default unit if missing
 
+                # Custom unit mapping
+                unit_mapping = {
+                    'electron_volt': 'eV',
+                    'joule': 'J',
+                    # Add more mappings as needed
+                }
+
+                # Use pint to format the unit in a pretty way
+                ureg = pint.UnitRegistry(system="short")
+                pretty_unit = ureg(unit).units.format_babel()
+                pretty_unit = unit_mapping.get(pretty_unit, pretty_unit)  # Apply custom mapping
+
+                logger.info(f'Formatted unit: {pretty_unit}')
+
                 # Create positions as 1, 2, 3, ..., based on the number of energy entries
                 positions = list(range(1, len(magnitudes) + 1))
 
@@ -126,7 +140,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 fig = px.scatter(
                     x=positions,
                     y=magnitudes,
-                    labels={'x': 'Reaction Coordinates', 'y': f'Energy Difference ({unit})'},
+                    labels={'x': 'Reaction Coordinates', 'y': f'Energy Difference ({pretty_unit})'},
                 )
                 fig.add_scatter(
                     x=positions, y=magnitudes, mode='lines', line=dict(shape='linear')
