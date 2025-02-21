@@ -132,7 +132,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 fig = px.scatter(
                     x=positions,
                     y=magnitudes,
-                    labels={'x': 'Image Position', 'y': f'Energy Difference ({unit})'},
+                    labels={'x': 'Reaction Coordinates', 'y': f'Energy Difference ({unit})'},
                 )
                 fig.add_scatter(
                     x=positions, y=magnitudes, mode='lines', line=dict(shape='linear')
