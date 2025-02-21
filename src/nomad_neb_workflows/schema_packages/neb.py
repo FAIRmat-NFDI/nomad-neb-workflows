@@ -94,21 +94,22 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         try:
             # Extract system name from input structure (first task input path)
-            # if self.tasks and self.tasks[0].inputs:
-            #     input_path = self.tasks[0].inputs[0].section
-            #     print(input_path)
-            #     # Example: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
-            #     system_name = input_path.split('/')[-5]  # Extract "AlCo2S4" from path
-            #     print(system_name)
-            # else:
-            #     system_name = "Unknown System"
+            if self.tasks and self.tasks[0].inputs:
+                input_path = self.tasks[0].inputs[0].section
+                logger.info(f'Input path: {input_path}')
+                # Example: '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/system/-1'
+                system_name = input_path.split('/')[-5]  # Extract "AlCo2S4" from path
+                logger.info(f'Extracted system name: {system_name}')
+            else:
+                system_name = "Unknown_NEB_System"
+                logger.info('No tasks or inputs found, setting system name to Unknown_NEB_System')
 
             # Dynamically set entry name
             archive.metadata.entry_type = 'NEB'
-            archive.metadata.entry_name = 'NEB Calculation'
-        except Exception:
+            archive.metadata.entry_name = f'{system_name}_NEB Calculation'
+        except Exception as e:
             logger.error(
-                'Could not set archive.metadata quantities entry_type and entry_name.'
+                f'Could not set archive.metadata quantities entry_type and entry_name: {e}'
             )
 
         # Generate NEB energy plot using Plotly Express and store it in self.figures
