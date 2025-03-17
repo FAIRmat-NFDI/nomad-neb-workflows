@@ -41,7 +41,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "mypy==1.0.1",
+    "mypy>=1.15",
     "ruff",
     "pytest",
     "pytest-timeout",
