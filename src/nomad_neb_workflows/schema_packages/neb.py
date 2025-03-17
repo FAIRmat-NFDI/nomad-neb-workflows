@@ -127,9 +127,11 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 }
 
                 # Use pint to format the unit in a pretty way
-                ureg = pint.UnitRegistry(system="short")
+                ureg = pint.UnitRegistry(system='short')
                 pretty_unit = ureg(unit).units.format_babel()
-                pretty_unit = unit_mapping.get(pretty_unit, pretty_unit)  # Apply custom mapping
+                pretty_unit = unit_mapping.get(
+                    pretty_unit, pretty_unit
+                )  # Apply custom mapping
 
                 logger.info(f'Formatted unit: {pretty_unit}')
 
@@ -140,7 +142,10 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 fig = px.scatter(
                     x=positions,
                     y=magnitudes,
-                    labels={'x': 'Reaction Coordinates', 'y': f'Energy Difference ({pretty_unit})'},
+                    labels={
+                        'x': 'Reaction Coordinates',
+                        'y': f'Energy Difference ({pretty_unit})',
+                    },
                 )
                 fig.add_scatter(
                     x=positions, y=magnitudes, mode='lines', line=dict(shape='linear')
