@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 from nomad.parsing.parser import ArchiveParser
 from nomad.datamodel.context import ClientContext
 
@@ -33,9 +32,26 @@ def test_workflow_archive_yaml():
     # Parsing the file
     ArchiveParser().parse(mainfile=mainfile, archive=archive, logger=LOGGER)
 
-    # Normalizing and asserting the workflow
+    # Asserting that the workflow is correctly instantiated
     assert isinstance(archive.workflow2, NEBWorkflow)
     neb_workflow = archive.workflow2
-    # TODO fix this! Ask Amir why this is not working
+
+    # Normalizing the workflow
     neb_workflow.normalize(archive=archive, logger=LOGGER)
+
+    # Asserting the default workflow name
     assert neb_workflow.name == 'NEB'
+
+    # Checking if total energy differences can be extracted
+    energy_differences = neb_workflow.extract_total_energy_differences(logger=LOGGER)
+    assert energy_differences is None or isinstance(energy_differences, list)
+
+    # Ensuring metadata entry is correctly assigned after normalization
+    assert archive.metadata.entry_type == 'NEB'
+    assert archive.metadata.entry_name == 'NEB test'
+
+    # Attempting to plot the energy profile (should not raise exceptions)
+    try:
+        neb_workflow.plot_energy_vs_position(logger=LOGGER)
+    except Exception as e:
+        assert False, f'plot_energy_vs_position raised an exception: {e}'
