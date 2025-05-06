@@ -8,9 +8,12 @@ if TYPE_CHECKING:
     from structlog.stdlib import BoundLogger
 
 from nomad.config import config
-from nomad.metainfo import Quantity, SchemaPackage, Quantity
+from nomad.metainfo import Quantity, SchemaPackage, Quantity, SubSection
 from simulationworkflowschema.general import SimulationWorkflow
+from nomad.datamodel.data import ArchiveSection
 from nomad.datamodel.metainfo.plot import PlotSection, PlotlyFigure
+from nomad.datamodel.metainfo.workflow import TaskReference, Link
+
 
 configuration = config.get_plugin_entry_point(
     'nomad_neb_workflows.schema_packages:nomad_neb_workflows_plugin'
@@ -18,7 +21,45 @@ configuration = config.get_plugin_entry_point(
 
 m_package = SchemaPackage()
 
+class NEBWorkflowResults(ArchiveSection):
+    """
+    A section used to define the results of a Nudged Elastic Band (NEB) workflow. This section contains
+    information about the total energy differences and the path of configurations in the NEB workflow.
+    """
 
+    total_energy_differences = Quantity(
+        type=np.float64,
+        shape=['*'],
+        unit='eV',
+        description="""
+        Total energy differences of the system for each of the images in the path relative to the first (initial) image.
+        """,
+    )
+    path = Quantity(
+        type=np.float64,
+        shape=['*'],
+        unit='angstrom',
+        description="""
+        Path of configurations (reaction coordinate) in the NEB workflow. This is a list of distances
+        between the images in the path.
+        """,
+    )
+    reaction_energy = Quantity(
+        type=np.float64,
+        shape=[],
+        unit='eV',
+        description="""
+        Reaction energy of the system. This is the energy difference between the initial and final images.
+        """,
+    )
+    activation_energy = Quantity(
+        type=np.float64,
+        shape=[],
+        unit='eV',
+        description="""
+        Activation energy of the reaction. This is the energy difference between the initial image and the highest point of the path.
+        """,
+    )
 class NEBWorkflow(SimulationWorkflow, PlotSection):
     """
     A base section used to define Nudged Elastic Band (NEB) workflows. These workflows are used to find the
@@ -35,25 +76,54 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         description='Name of the workflow. Default set to `NEB`.',
     )
 
-    total_energy_differences = Quantity(
-        type=np.float64,
-        shape=['*'],
-        unit='eV',
-        description="""
-        Total energy differences of the system for each of the images in the path. These quantities are
-        defined positive.
-        """,
+    neb_workflow_results = SubSection(
+        section_def=NEBWorkflowResults,
+        repeats=False,
+        description='Results of the NEB workflow.',
     )
 
-    path = Quantity(
-        type=np.float64,
-        shape=['*'],
-        unit='angstrom',
-        description="""
-        Path of configurations (reaction coordinate) in the NEB workflow. This is a list of distances
-        between the images in the path.
-        """,
-    )
+    def extend_workflow(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
+        """
+        Extend the workflow file with tasks and output from the input.
+        Args:
+            archive (EntryArchive): The archive to extend.
+            logger (BoundLogger): The logger to log messages.
+        """
+
+        logger.info(f'Extending NEB workflow with tasks and outputs. length'
+                    f'of inputs: {len(self.inputs)}. self.tasks: {self.tasks}')
+        if self.inputs and len(self.inputs) > 3:
+            if self.tasks == []:
+                # Initialize the tasks list if it is None
+                self.tasks = []
+                for i in range(len(self.inputs)):
+                    # Create a new task for each image
+                    task = TaskReference()
+                    input = Link()
+                    output = Link()
+                    output_system = Link()
+
+                    if i == 0:
+                        task.name = 'Initial Image Simulation'
+                        input.section = self.inputs[0].section.system[-1]
+                        task.inputs.append(input)
+                        output.section = self.inputs[0].section.calculation[-1]
+                        task.outputs.append(output)
+                    elif i < len(self.inputs) - 1:
+                        task.name = f'Image {i} Simulation'
+                        input.section=self.inputs[i-1].section.system[-1]
+                        task.inputs.append(input)
+                        output.section = self.inputs[i].section.calculation[-1]
+                        task.outputs.append(output)
+                        output_system.section = self.inputs[i].section.system[-1]
+                        task.outputs.append(output_system)
+                    elif i == len(self.inputs) - 1:
+                        task.name = 'Final Image Simulation'
+                        input.section = self.inputs[-1].section.system[0]
+                        task.inputs.append(input)
+                        output.section = self.inputs[-1].section.calculation[-1]
+                        task.outputs.append(output)
+                    self.tasks.append(task)
 
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
@@ -69,22 +139,22 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             of configurations in units of energy.
         """
         # Resolve the reference of energies from the first NEB task
-        ref_image_task = self.outputs[0]
-        if self.outputs[0].section.energy.total.value is None:  ### this line raises a normalize error for me
+        ref_image_task = self.inputs[0]
+        if self.inputs[0].section.calculation[-1].energy.total.value is None:  ### this line raises a normalize error for me
             logger.error(
                 'Could not resolve the initial value of the total energy for referencing.'
             )
             return None
 
-        energy_reference = ref_image_task.section.energy.total.value.m
-        energy_units = ref_image_task.section.energy.total.value.u
+        energy_reference = ref_image_task.section.calculation[-1].energy.total.value.m
+        energy_units = ref_image_task.section.calculation[-1].energy.total.value.u
 
         # Append the energy differences of the images w.r.t. the reference of energies
         tot_energies = []
-        for output in self.outputs:
-            if output.section.energy.total.value is not None:
+        for input in self.inputs:
+            if input.section.calculation[-1].energy.total.value is not None:
                 tot_energies.append(
-                    output.section.energy.total.value.m - energy_reference
+                    input.section.calculation[-1].energy.total.value.m - energy_reference
                 )
             else:
                 tot_energies.append(None)  # Handle missing values safely
@@ -109,20 +179,19 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         path = []
         #for i in range(n_images - 1):
         i = 0
-        initial_position = self.inputs[0].section.atoms.positions.m
-        positions = [output.section.system[-1].atoms.positions.m for output in self.tasks[0].outputs]
-        path_unit = self.tasks[0].outputs[0].section.system[-1].atoms.positions.u
-        cell = self.tasks[0].outputs[0].section.system[-1].atoms.lattice_vectors
-        pbc = self.tasks[0].outputs[0].section.system[-1].atoms.periodic
-        logger.info(f'number of iterations: {len(self.tasks[0].outputs)}')
-        for output in self.tasks[0].outputs:
+        initial_position = self.inputs[0].section.system[-1].atoms.positions.m
+        positions = [output.section.system[-1].atoms.positions.m for output in self.inputs]
+        path_unit = self.inputs[0].section.system[-1].atoms.positions.u
+        cell = self.inputs[0].section.system[-1].atoms.lattice_vectors
+        pbc = self.inputs[0].section.system[-1].atoms.periodic
+        logger.info(f'number of iterations: {len(self.inputs)}')
+        for output in self.inputs:
             if output.section.system[-1].atoms.positions is not None:
                 dR = positions[i] - initial_position
                 # if cell is not None and pbc is not None:
                 #     from ase.geometry import find_mic
                 #     dR, _ = find_mic(dR, cell, pbc)
                 path.append(np.sqrt((dR**2).sum()))
-                logger.info(f'Iteration {i}')
                 i += 1
             else:
                 logger.error(
@@ -132,22 +201,92 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         # Return the path of configurations
         logger.info(f'Successfully extracted path of configurations: {path}')
         return path * path_unit
+    
+    def plot_energy_vs_position(self, logger: 'BoundLogger') -> None:
 
+        if (
+            self.neb_workflow_results.total_energy_differences is not None
+            and len(self.neb_workflow_results.total_energy_differences) > 0
+        ):
+            # If energies are stored as pint.Quantity, extract magnitude and unit
+            if hasattr(self.neb_workflow_results.total_energy_differences, 'm'):
+                magnitudes = self.neb_workflow_results.total_energy_differences.m
+                unit = str(self.neb_workflow_results.total_energy_differences.u)
+            else:
+                magnitudes = self.neb_workflow_results.total_energy_differences
+                unit = 'eV'  # Default unit if missing
+
+            # Custom unit mapping
+            unit_mapping = {
+                'electron_volt': 'eV',
+                'joule': 'J',
+                'angstrom': 'Å',
+                'nanometer': 'nm',
+                # Add more mappings as needed
+            }
+            
+            if hasattr(self.neb_workflow_results.path, 'u'):
+                path_values = self.neb_workflow_results.path.m
+                unit_path = str(self.neb_workflow_results.path.u)
+
+
+            # Use pint to format the unit in a pretty way
+            ureg = pint.UnitRegistry(system='short')
+            pretty_unit = ureg(unit).units.format_babel()
+            pretty_unit = unit_mapping.get(
+                pretty_unit, pretty_unit
+            )  # Apply custom mapping
+            pretty_unit_path = ureg(unit_path).units.format_babel()
+            pretty_unit_path = unit_mapping.get(
+                pretty_unit_path, pretty_unit_path
+            )  # Apply custom mapping
+
+            logger.info(f'Formatted unit: {pretty_unit}, {pretty_unit_path}')
+
+            # Create positions as 1, 2, 3, ..., based on the number of energy entries
+
+            # Use Plotly Express to create the plot
+            fig = px.scatter(
+                x=path_values,
+                y=magnitudes,
+                labels={
+                    'x': f'Reaction Coordinate ({pretty_unit_path})',
+                    'y': f'Energy Difference ({pretty_unit})',
+                },
+            )
+            fig.add_scatter(
+                x=path_values, y=magnitudes, mode='lines', line=dict(shape='linear')
+            )
+
+            fig.update_layout(title='NEB Energy Profile', template='plotly_white')
+
+            # Convert to NOMAD-compatible PlotlyFigure
+            self.figures.append(
+                PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json())
+            )
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
 
-        # try:
-        self.total_energy_differences = self.extract_total_energy_differences(
-            logger=logger
-        )
-        # except Exception:
-        #     logger.error('Could not set NEBWorkflow.total_energy_differences.')
+        self.extend_workflow(archive=archive, logger=logger)
+
+        try:
+            if self.neb_workflow_results is None:
+                # Initialize the NEB workflow results section if it doesn't exist
+                self.neb_workflow_results = NEBWorkflowResults()
+            self.neb_workflow_results.total_energy_differences = self.extract_total_energy_differences(
+                logger=logger
+            )
+        except Exception:
+            logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
         # Extract system name from input structure (chemical composition of first image)
         try:
-            system_name = self.tasks[0].inputs[0].section.chemical_composition_hill
+            system_name = self.inputs[0].section.system[-1].chemical_composition_hill
         except (KeyError, IndexError, AttributeError):
+            logger.warning(
+                'Could not extract system name from the first image in the NEB workflow.'
+            )
             system_name = None
 
         # Dynamically set entry name
@@ -158,72 +297,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             archive.metadata.entry_name = 'NEB Calculation'
 
         positions = self.extract_path(logger=logger)
-        self.path = positions
+        self.neb_workflow_results.path = positions
         # except Exception as e:
         #     logger.error(f'Could not set NEBWorkflow.path: {e}')
 
         # Generate NEB energy plot using Plotly Express and store it in self.figures
         try:
-            if (
-                self.total_energy_differences is not None
-                and len(self.total_energy_differences) > 0
-            ):
-                # If energies are stored as pint.Quantity, extract magnitude and unit
-                if hasattr(self.total_energy_differences, 'm'):
-                    magnitudes = self.total_energy_differences.m
-                    unit = str(self.total_energy_differences.u)
-                else:
-                    magnitudes = self.total_energy_differences
-                    unit = 'eV'  # Default unit if missing
-
-                # Custom unit mapping
-                unit_mapping = {
-                    'electron_volt': 'eV',
-                    'joule': 'J',
-                    'angstrom': 'Å',
-                    'nanometer': 'nm',
-                    # Add more mappings as needed
-                }
-                
-                if hasattr(self.path, 'u'):
-                    path_values = self.path.m
-                    unit_path = str(self.path.u)
-
-
-                # Use pint to format the unit in a pretty way
-                ureg = pint.UnitRegistry(system='short')
-                pretty_unit = ureg(unit).units.format_babel()
-                pretty_unit = unit_mapping.get(
-                    pretty_unit, pretty_unit
-                )  # Apply custom mapping
-                pretty_unit_path = ureg(unit_path).units.format_babel()
-                pretty_unit_path = unit_mapping.get(
-                    pretty_unit_path, pretty_unit_path
-                )  # Apply custom mapping
-
-                logger.info(f'Formatted unit: {pretty_unit}, {pretty_unit_path}')
-
-                # Create positions as 1, 2, 3, ..., based on the number of energy entries
-
-                # Use Plotly Express to create the plot
-                fig = px.scatter(
-                    x=path_values,
-                    y=magnitudes,
-                    labels={
-                        'x': f'Reaction Coordinate ({pretty_unit_path})',
-                        'y': f'Energy Difference ({pretty_unit})',
-                    },
-                )
-                fig.add_scatter(
-                    x=path_values, y=magnitudes, mode='lines', line=dict(shape='linear')
-                )
-
-                fig.update_layout(title='NEB Energy Profile', template='plotly_white')
-
-                # Convert to NOMAD-compatible PlotlyFigure
-                self.figures.append(
-                    PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json())
-                )
+            self.plot_energy_vs_position(logger=logger)
         except Exception as e:
             logger.error(f'Error while generating NEB energy plot: {e}')
 

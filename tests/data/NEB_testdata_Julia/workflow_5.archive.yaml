@@ -1,0 +1,17 @@
+workflow2:
+  m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  inputs:
+    - name: Input structure for initial image
+      section:  '../upload/archive/mainfile/neb0.traj#/run/0/'
+    - name: Input structure for image 1
+      section:  '../upload/archive/mainfile/neb1.traj#/run/0/'
+    - name: Input structure for image 2
+      section:  '../upload/archive/mainfile/neb2.traj#/run/0/'
+    - name: Input structure for image 3
+      section:  '../upload/archive/mainfile/neb3.traj#/run/0/'
+    - name: Input structure for image 4
+      section:  '../upload/archive/mainfile/neb4.traj#/run/0/'
+    - name: Input structure for image 5
+      section:  '../upload/archive/mainfile/neb5.traj#/run/0/'
+    - name: Input structure for final image
+      section:  '../upload/archive/mainfile/neb6.traj#/run/0/'
