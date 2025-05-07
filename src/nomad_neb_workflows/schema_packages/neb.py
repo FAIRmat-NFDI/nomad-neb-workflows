@@ -13,6 +13,7 @@ from simulationworkflowschema.general import SimulationWorkflow
 from nomad.datamodel.data import ArchiveSection
 from nomad.datamodel.metainfo.plot import PlotSection, PlotlyFigure
 from nomad.datamodel.metainfo.workflow import TaskReference, Link
+from nomad.units import ureg
 
 
 configuration = config.get_plugin_entry_point(
@@ -60,6 +61,15 @@ class NEBWorkflowResults(ArchiveSection):
         Activation energy of the reaction. This is the energy difference between the initial image and the highest point of the path.
         """,
     )
+
+    activation_energy_fitted = Quantity(
+        type=np.float64,
+        shape=[],
+        unit='eV',
+        description="""
+        Activation energy of the reaction determined from the fit to the NEB path. This is the energy difference between the initial image and the highest point of the fitted path.
+        """,
+    )
 class NEBWorkflow(SimulationWorkflow, PlotSection):
     """
     A base section used to define Nudged Elastic Band (NEB) workflows. These workflows are used to find the
@@ -90,8 +100,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             logger (BoundLogger): The logger to log messages.
         """
 
-        logger.info(f'Extending NEB workflow with tasks and outputs. length'
-                    f'of inputs: {len(self.inputs)}. self.tasks: {self.tasks}')
         if self.inputs and len(self.inputs) > 3:
             if self.tasks == []:
                 # Initialize the tasks list if it is None
@@ -124,6 +132,11 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                         output.section = self.inputs[-1].section.calculation[-1]
                         task.outputs.append(output)
                     self.tasks.append(task)
+            if self.outputs == []:
+                    output = Link()
+                    output.section = self.neb_workflow_results
+                    output.name = 'NEB Workflow Results'
+                    self.outputs.append(output)
 
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
@@ -139,15 +152,14 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             of configurations in units of energy.
         """
         # Resolve the reference of energies from the first NEB task
-        ref_image_task = self.inputs[0]
-        if self.inputs[0].section.calculation[-1].energy.total.value is None:  ### this line raises a normalize error for me
+        if self.inputs[0].section.calculation[-1].energy.total.value is None:
             logger.error(
                 'Could not resolve the initial value of the total energy for referencing.'
             )
             return None
 
-        energy_reference = ref_image_task.section.calculation[-1].energy.total.value.m
-        energy_units = ref_image_task.section.calculation[-1].energy.total.value.u
+        energy_reference = self.inputs[0].section.calculation[-1].energy.total.value.m
+        energy_units = self.inputs[0].section.calculation[-1].energy.total.value.u
 
         # Append the energy differences of the images w.r.t. the reference of energies
         tot_energies = []
@@ -161,7 +173,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Return a pint.Quantity (list of magnitudes with associated unit)
         return tot_energies * energy_units
-    
 
     def extract_path(self, logger: 'BoundLogger') -> Optional[pint.Quantity]:
         """
@@ -174,34 +185,49 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             Optional[pint.Quantity]: The path of configurations (reaction coordinate)
             in the NEB workflow.
         """
-        # Extract the path of configurations from the first NEB task
-        logger.info('Extracting path of configurations from NEB workflow.')
+
         path = []
-        #for i in range(n_images - 1):
-        i = 0
         initial_position = self.inputs[0].section.system[-1].atoms.positions.m
-        positions = [output.section.system[-1].atoms.positions.m for output in self.inputs]
         path_unit = self.inputs[0].section.system[-1].atoms.positions.u
         cell = self.inputs[0].section.system[-1].atoms.lattice_vectors
         pbc = self.inputs[0].section.system[-1].atoms.periodic
-        logger.info(f'number of iterations: {len(self.inputs)}')
-        for output in self.inputs:
-            if output.section.system[-1].atoms.positions is not None:
-                dR = positions[i] - initial_position
+        for input in self.inputs:
+            if input.section.system[-1].atoms.positions is not None:
+                dR = input.section.system[-1].atoms.positions.m - initial_position
                 # if cell is not None and pbc is not None:
                 #     from ase.geometry import find_mic
                 #     dR, _ = find_mic(dR, cell, pbc)
                 path.append(np.sqrt((dR**2).sum()))
-                i += 1
             else:
                 logger.error(
                     'Could not resolve the path of configurations in the NEB workflow.'
                 )
                 return None
-        # Return the path of configurations
-        logger.info(f'Successfully extracted path of configurations: {path}')
         return path * path_unit
-    
+
+    def get_ase_forces(self, logger: 'BoundLogger') -> Optional[Quantity]:
+        ase_forces = []
+        for input in self.inputs:
+            if input.section.calculation[-1].forces.total.value is not None:
+                force = input.section.calculation[-1].forces.total.value.to('eV/angstrom')
+                ase_force = np.transpose(force.m)
+                ase_forces.append(ase_force)
+            else:
+                ase_forces.append(None)  # Handle missing values safely
+        return ase_forces
+
+    def get_ase_positions(self, logger: 'BoundLogger') -> Optional[Quantity]:
+        ase_positions = []
+        for input in self.inputs:
+            if input.section.system[-1].atoms.positions is not None:
+                position = input.section.system[-1].atoms.positions.to('angstrom')
+                ase_position = np.transpose(position.m)
+                ase_positions.append(ase_position)
+            else:
+                ase_positions.append(None)
+        return ase_positions
+
+
     def plot_energy_vs_position(self, logger: 'BoundLogger') -> None:
 
         if (
@@ -224,11 +250,10 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 'nanometer': 'nm',
                 # Add more mappings as needed
             }
-            
+
             if hasattr(self.neb_workflow_results.path, 'u'):
                 path_values = self.neb_workflow_results.path.m
                 unit_path = str(self.neb_workflow_results.path.u)
-
 
             # Use pint to format the unit in a pretty way
             ureg = pint.UnitRegistry(system='short')
@@ -242,8 +267,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             )  # Apply custom mapping
 
             logger.info(f'Formatted unit: {pretty_unit}, {pretty_unit_path}')
-
-            # Create positions as 1, 2, 3, ..., based on the number of energy entries
 
             # Use Plotly Express to create the plot
             fig = px.scatter(
@@ -264,11 +287,54 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             self.figures.append(
                 PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json())
             )
+    def fit_and_plot_energy_vs_position_ase(self, logger: 'BoundLogger') -> Quantity:
+        forces_ase = self.get_ase_forces(logger=logger)
+        positions = self.get_ase_positions(logger=logger)
+        magnitudes = self.neb_workflow_results.total_energy_differences.m
+
+        pretty_unit = 'eV'
+        pretty_unit_path = 'Å'
+
+        from ase.utils.forcecurve import fit_raw, ForceFit
+        ForceFit=fit_raw(magnitudes, forces_ase, positions)
+        fig1 = px.scatter(
+            x=ForceFit.path,
+            y=ForceFit.energies,
+            labels={
+                'x': f'Reaction Coordinate ({pretty_unit_path})',
+                'y': f'Energy Difference ({pretty_unit})',
+            },
+        )
+        for x,y in ForceFit.lines:
+            fig1.add_scatter(x=x,y=y,mode='lines',line=dict(shape='linear'))
+        fig1.add_scatter(
+            x=ForceFit.fit_path, y=ForceFit.fit_energies, mode='lines', line=dict(shape='linear')
+        )
+        Ef=max(ForceFit.energies)
+        index_max = np.argmax(ForceFit.energies)
+        path_max = ForceFit.path[index_max]
+        Ef_fit=max(ForceFit.fit_energies)
+        index_max_fit = np.argmax(ForceFit.fit_energies)
+        path_max_fit = ForceFit.fit_path[index_max_fit]
+        if Ef_fit - Ef < 0.05 and (path_max_fit - path_max) < 0.05:
+            fig1.add_annotation(x=ForceFit.path[index_max], y=Ef,
+                        text=f'E<sub>A</sub> {Ef:.2f} eV',
+                        showarrow=True, arrowhead=1, xanchor='left')
+        else:
+            fig1.add_annotation(x=ForceFit.fit_path[index_max_fit], y=Ef_fit,
+                                text=f'E<sub>A</sub> (fit) {Ef_fit:.2f} eV',
+                                showarrow=True,arrowhead=1, xanchor='left')
+
+        fig1.update_layout(title='NEB Energy Profile ASE', template='plotly_white')
+
+        self.figures.append(
+            PlotlyFigure(label='NEB Workflow ASE Fit', figure=fig1.to_plotly_json())
+        )
+
+        return Ef_fit
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
-
-        self.extend_workflow(archive=archive, logger=logger)
 
         try:
             if self.neb_workflow_results is None:
@@ -296,16 +362,33 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         else:
             archive.metadata.entry_name = 'NEB Calculation'
 
-        positions = self.extract_path(logger=logger)
-        self.neb_workflow_results.path = positions
-        # except Exception as e:
-        #     logger.error(f'Could not set NEBWorkflow.path: {e}')
+
+        self.neb_workflow_results.reaction_energy = (
+            self.neb_workflow_results.total_energy_differences[-1]
+        )
+        self.neb_workflow_results.activation_energy = (
+            max(self.neb_workflow_results.total_energy_differences)
+            - self.neb_workflow_results.total_energy_differences[0]
+        )
+        try:
+            path_distance = self.extract_path(logger=logger)
+            self.neb_workflow_results.path = path_distance
+        except Exception as e:
+            logger.error(f'Could not set NEBWorkflow.path: {e}')
 
         # Generate NEB energy plot using Plotly Express and store it in self.figures
         try:
-            self.plot_energy_vs_position(logger=logger)
-        except Exception as e:
-            logger.error(f'Error while generating NEB energy plot: {e}')
+            Ef_fit = self.fit_and_plot_energy_vs_position_ase(logger=logger)
+            self.neb_workflow_results.activation_energy_fitted = Ef_fit
 
+        except Exception as e:
+            logger.error(f'Error while generating NEB energy plot with fit: {e}')
+            try:
+                self.plot_energy_vs_position(logger=logger)
+            except Exception as e:
+                logger.error('Could not generate NEB figure. Error while generating NEB'
+                             f'energy plot: {e}')
+
+        self.extend_workflow(archive=archive, logger=logger)
 
 m_package.__init_metainfo__()
