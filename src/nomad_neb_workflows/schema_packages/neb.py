@@ -73,7 +73,10 @@ class NEBWorkflowResults(ArchiveSection):
     )
 
 
+from typing import List, Optional
+
 class NEBWorkflow(SimulationWorkflow, PlotSection):
+    tasks: Optional[List[TaskReference]] = None
     """
     A base section used to define Nudged Elastic Band (NEB) workflows. These workflows are used to find the
     minimum energy path and transition states between two stable states in a system. It involves interpolating
@@ -86,7 +89,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     name = Quantity(
         type=str,
         default='NEB',
-        description='Name of the workflow. Default set to `NEB`.',
+        description='Name of the workflow. Default set to `NEB Calculation`.',
     )
 
     neb_workflow_results = SubSection(
@@ -103,8 +106,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             logger (BoundLogger): The logger to log messages.
         """
 
-        if self.inputs and len(self.inputs) > 3:
-            if self.tasks is None or self.tasks == []:
+        if self.inputs and len(self.inputs) > 3 and not self.tasks:
+            if self.tasks == []:
                 # Initialize the tasks list if it is None
                 self.tasks = []
                 for i in range(len(self.inputs)):
