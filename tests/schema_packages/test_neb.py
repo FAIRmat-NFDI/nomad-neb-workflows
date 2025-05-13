@@ -37,10 +37,10 @@ infrastructure.setup()
 logger = get_logger(__name__)
 
 def test_workflow_archive_yaml():
-    input1 = os.path.join('../data/NEB_testdata_Julia', 'neb0.traj')
-    input2 = os.path.join( '../data/NEB_testdata_Julia', 'neb1.traj')
-    input3 = os.path.join( '../data/NEB_testdata_Julia', 'neb6.traj')
-    workflow_input = os.path.join('../data', 'NEB_testdata_Julia', 'workflow1.archive.yaml')
+    input1 = os.path.join('tests/data/NEB_testdata_Julia', 'neb0.traj')
+    input2 = os.path.join( 'tests/data/NEB_testdata_Julia', 'neb1.traj')
+    input3 = os.path.join( 'tests/data/NEB_testdata_Julia', 'neb6.traj')
+    workflow_input = os.path.join('tests/data', 'NEB_testdata_Julia', 'workflow1.archive.yaml')
 
     upload_files = StagingUploadFiles(upload_id='NEB_testdata', create=True)
     upload = Upload(upload_id='NEB_testdata')
