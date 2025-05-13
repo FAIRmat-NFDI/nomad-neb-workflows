@@ -1,0 +1,15 @@
+workflow2:
+  m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  inputs:
+    - name: Input structure for reference image
+      section:  '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/run/0/'
+    - name: Input structure for image 2
+      section:  '../upload/archive/mainfile/AlCo2S4/neb/01/OUTCAR#/run/0/'
+    - name: Input structure for image 3
+      section:  '../upload/archive/mainfile/AlCo2S4/neb/02/OUTCAR#/run/0/'
+    - name: Input structure for image 4
+      section:  '../upload/archive/mainfile/AlCo2S4/neb/03/OUTCAR#/run/0/'
+    - name: Input structure for image 5
+      section:  '../upload/archive/mainfile/AlCo2S4/neb/04/OUTCAR#/run/0/'
+    - name: Input structure for image 6
+      section:  '../upload/archive/mainfile/AlCo2S4/neb/05/OUTCAR#/run/0/'
