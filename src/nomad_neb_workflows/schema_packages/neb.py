@@ -14,7 +14,7 @@ from nomad.datamodel.data import ArchiveSection
 from nomad.datamodel.metainfo.plot import PlotSection, PlotlyFigure
 from nomad.datamodel.metainfo.workflow import TaskReference, Link
 from nomad.units import ureg
-
+from typing import List, Optional
 
 configuration = config.get_plugin_entry_point(
     'nomad_neb_workflows.schema_packages:nomad_neb_workflows_plugin'
@@ -72,8 +72,6 @@ class NEBWorkflowResults(ArchiveSection):
         """,
     )
 
-
-from typing import List, Optional
 
 class NEBWorkflow(SimulationWorkflow, PlotSection):
     tasks: Optional[List[TaskReference]] = None
