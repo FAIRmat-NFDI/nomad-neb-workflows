@@ -101,7 +101,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         """
 
         if self.inputs and len(self.inputs) > 3:
-            if self.tasks == []:
+            if self.tasks is None or self.tasks == []:
                 # Initialize the tasks list if it is None
                 self.tasks = []
                 for i in range(len(self.inputs)):

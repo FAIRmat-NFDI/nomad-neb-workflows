@@ -96,4 +96,3 @@ def test_workflow_archive_yaml():
     # import json
     # with open('output_CuCuZn.json', 'w') as f:
     #     json.dump(workflow_archive.m_to_dict(), f, indent=4)
-    
