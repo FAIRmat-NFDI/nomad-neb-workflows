@@ -93,3 +93,6 @@ def test_workflow_archive_yaml():
     assert workflow_archive.metadata.entry_type == 'NEB Workflow'
     assert workflow_archive.metadata.entry_name == 'NEB Calculation'
 
+    # import json
+    # with open('output_CuCuZn.json', 'w') as f:
+    #     json.dump(workflow_archive.m_to_dict(), f, indent=4)
