@@ -22,6 +22,7 @@ configuration = config.get_plugin_entry_point(
 
 m_package = SchemaPackage()
 
+
 class NEBWorkflowResults(ArchiveSection):
     """
     A section used to define the results of a Nudged Elastic Band (NEB) workflow. This section contains
@@ -70,6 +71,8 @@ class NEBWorkflowResults(ArchiveSection):
         Activation energy of the reaction determined from the fit to the NEB path. This is the energy difference between the initial image and the highest point of the fitted path.
         """,
     )
+
+
 class NEBWorkflow(SimulationWorkflow, PlotSection):
     """
     A base section used to define Nudged Elastic Band (NEB) workflows. These workflows are used to find the
@@ -119,7 +122,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                         task.outputs.append(output)
                     elif i < len(self.inputs) - 1:
                         task.name = f'Image {i} Simulation'
-                        input.section=self.inputs[i-1].section.system[-1]
+                        input.section = self.inputs[i - 1].section.system[-1]
                         task.inputs.append(input)
                         output.section = self.inputs[i].section.calculation[-1]
                         task.outputs.append(output)
@@ -133,10 +136,10 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                         task.outputs.append(output)
                     self.tasks.append(task)
             if self.outputs == []:
-                    output = Link()
-                    output.section = self.neb_workflow_results
-                    output.name = 'NEB Workflow Results'
-                    self.outputs.append(output)
+                output = Link()
+                output.section = self.neb_workflow_results
+                output.name = 'NEB Workflow Results'
+                self.outputs.append(output)
 
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
@@ -166,7 +169,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         for input in self.inputs:
             if input.section.calculation[-1].energy.total.value is not None:
                 tot_energies.append(
-                    input.section.calculation[-1].energy.total.value.m - energy_reference
+                    input.section.calculation[-1].energy.total.value.m
+                    - energy_reference
                 )
             else:
                 tot_energies.append(None)  # Handle missing values safely
@@ -209,7 +213,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         ase_forces = []
         for input in self.inputs:
             if input.section.calculation[-1].forces.total.value is not None:
-                force = input.section.calculation[-1].forces.total.value.to('eV/angstrom')
+                force = input.section.calculation[-1].forces.total.value.to(
+                    'eV/angstrom'
+                )
                 ase_force = np.transpose(force.m)
                 ase_forces.append(ase_force)
             else:
@@ -227,9 +233,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 ase_positions.append(None)
         return ase_positions
 
-
     def plot_energy_vs_position(self, logger: 'BoundLogger') -> None:
-
         if (
             self.neb_workflow_results.total_energy_differences is not None
             and len(self.neb_workflow_results.total_energy_differences) > 0
@@ -287,6 +291,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             self.figures.append(
                 PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json())
             )
+
     def fit_and_plot_energy_vs_position_ase(self, logger: 'BoundLogger') -> Quantity:
         forces_ase = self.get_ase_forces(logger=logger)
         positions = self.get_ase_positions(logger=logger)
@@ -296,7 +301,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         pretty_unit_path = 'Å'
 
         from ase.utils.forcecurve import fit_raw, ForceFit
-        ForceFit=fit_raw(magnitudes, forces_ase, positions)
+
+        ForceFit = fit_raw(magnitudes, forces_ase, positions)
         fig1 = px.scatter(
             x=ForceFit.path,
             y=ForceFit.energies,
@@ -305,25 +311,38 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 'y': f'Energy Difference ({pretty_unit})',
             },
         )
-        for x,y in ForceFit.lines:
-            fig1.add_scatter(x=x,y=y,mode='lines',line=dict(shape='linear'))
+        for x, y in ForceFit.lines:
+            fig1.add_scatter(x=x, y=y, mode='lines', line=dict(shape='linear'))
         fig1.add_scatter(
-            x=ForceFit.fit_path, y=ForceFit.fit_energies, mode='lines', line=dict(shape='linear')
+            x=ForceFit.fit_path,
+            y=ForceFit.fit_energies,
+            mode='lines',
+            line=dict(shape='linear'),
         )
-        Ef=max(ForceFit.energies)
+        Ef = max(ForceFit.energies)
         index_max = np.argmax(ForceFit.energies)
         path_max = ForceFit.path[index_max]
-        Ef_fit=max(ForceFit.fit_energies)
+        Ef_fit = max(ForceFit.fit_energies)
         index_max_fit = np.argmax(ForceFit.fit_energies)
         path_max_fit = ForceFit.fit_path[index_max_fit]
         if Ef_fit - Ef < 0.05 and (path_max_fit - path_max) < 0.05:
-            fig1.add_annotation(x=ForceFit.path[index_max], y=Ef,
-                        text=f'E<sub>A</sub> {Ef:.2f} eV',
-                        showarrow=True, arrowhead=1, xanchor='left')
+            fig1.add_annotation(
+                x=ForceFit.path[index_max],
+                y=Ef,
+                text=f'E<sub>A</sub> {Ef:.2f} eV',
+                showarrow=True,
+                arrowhead=1,
+                xanchor='left',
+            )
         else:
-            fig1.add_annotation(x=ForceFit.fit_path[index_max_fit], y=Ef_fit,
-                                text=f'E<sub>A</sub> (fit) {Ef_fit:.2f} eV',
-                                showarrow=True,arrowhead=1, xanchor='left')
+            fig1.add_annotation(
+                x=ForceFit.fit_path[index_max_fit],
+                y=Ef_fit,
+                text=f'E<sub>A</sub> (fit) {Ef_fit:.2f} eV',
+                showarrow=True,
+                arrowhead=1,
+                xanchor='left',
+            )
 
         fig1.update_layout(title='NEB Energy Profile ASE', template='plotly_white')
 
@@ -340,8 +359,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             if self.neb_workflow_results is None:
                 # Initialize the NEB workflow results section if it doesn't exist
                 self.neb_workflow_results = NEBWorkflowResults()
-            self.neb_workflow_results.total_energy_differences = self.extract_total_energy_differences(
-                logger=logger
+            self.neb_workflow_results.total_energy_differences = (
+                self.extract_total_energy_differences(logger=logger)
             )
         except Exception:
             logger.error('Could not set NEBWorkflow.total_energy_differences.')
@@ -361,7 +380,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             archive.metadata.entry_name = f'{system_name} NEB Calculation'
         else:
             archive.metadata.entry_name = 'NEB Calculation'
-
 
         self.neb_workflow_results.reaction_energy = (
             self.neb_workflow_results.total_energy_differences[-1]
@@ -386,9 +404,12 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             try:
                 self.plot_energy_vs_position(logger=logger)
             except Exception as e:
-                logger.error('Could not generate NEB figure. Error while generating NEB'
-                             f'energy plot: {e}')
+                logger.error(
+                    'Could not generate NEB figure. Error while generating NEB'
+                    f'energy plot: {e}'
+                )
 
         self.extend_workflow(archive=archive, logger=logger)
+
 
 m_package.__init_metainfo__()

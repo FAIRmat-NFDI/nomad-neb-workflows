@@ -32,15 +32,16 @@ from nomad import infrastructure
 
 infrastructure.setup()
 
-#from conftest import LOGGER, get_archives
-
 logger = get_logger(__name__)
+
 
 def test_workflow_archive_yaml():
     input1 = os.path.join('tests/data/NEB_testdata_Julia', 'neb0.traj')
-    input2 = os.path.join( 'tests/data/NEB_testdata_Julia', 'neb1.traj')
-    input3 = os.path.join( 'tests/data/NEB_testdata_Julia', 'neb6.traj')
-    workflow_input = os.path.join('tests/data', 'NEB_testdata_Julia', 'workflow1.archive.yaml')
+    input2 = os.path.join('tests/data/NEB_testdata_Julia', 'neb1.traj')
+    input3 = os.path.join('tests/data/NEB_testdata_Julia', 'neb6.traj')
+    workflow_input = os.path.join(
+        'tests/data', 'NEB_testdata_Julia', 'workflow1.archive.yaml'
+    )
 
     upload_files = StagingUploadFiles(upload_id='NEB_testdata', create=True)
     upload = Upload(upload_id='NEB_testdata')
@@ -85,7 +86,9 @@ def test_workflow_archive_yaml():
     assert neb_workflow.name == 'NEB'
 
     # Checking if total energy differences can be extracted
-    energy_differences = neb_workflow.neb_workflow_results.get('total_energy_differences')
+    energy_differences = neb_workflow.neb_workflow_results.get(
+        'total_energy_differences'
+    )
     assert energy_differences is not None
     assert len(energy_differences) == 3
 

@@ -32,18 +32,19 @@ from nomad import infrastructure
 
 infrastructure.setup()
 
-#from conftest import LOGGER, get_archives
-
 logger = get_logger(__name__)
+
 
 def test_workflow_archive_yaml():
     input1 = 'tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/00/OUTCAR'
-    input2 = os.path.join( 'tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/01', 'OUTCAR')
-    input3 = os.path.join( 'tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/02', 'OUTCAR')
-    input4 = os.path.join( 'tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/03', 'OUTCAR')
-    input5 = os.path.join( 'tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/04', 'OUTCAR')
-    input6 = os.path.join( 'tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/05', 'OUTCAR')
-    workflow_input = os.path.join('tests/data', 'AlCo2S4_uday_gajera', 'workflow.archive.yaml')
+    input2 = os.path.join('tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/01', 'OUTCAR')
+    input3 = os.path.join('tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/02', 'OUTCAR')
+    input4 = os.path.join('tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/03', 'OUTCAR')
+    input5 = os.path.join('tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/04', 'OUTCAR')
+    input6 = os.path.join('tests/data/AlCo2S4_uday_gajera/AlCo2S4/neb/05', 'OUTCAR')
+    workflow_input = os.path.join(
+        'tests/data', 'AlCo2S4_uday_gajera', 'workflow.archive.yaml'
+    )
 
     upload_files = StagingUploadFiles(upload_id='NEB_testdata_AlCo2S4', create=True)
     upload = Upload(upload_id='NEB_testdata_AlCo2S4')
@@ -83,7 +84,9 @@ def test_workflow_archive_yaml():
 
     workflow_archive = EntryArchive(
         m_context=context,
-        metadata=EntryMetadata(upload_id=upload.upload_id, entry_id='workflow_AlCo2S4_entry'),
+        metadata=EntryMetadata(
+            upload_id=upload.upload_id, entry_id='workflow_AlCo2S4_entry'
+        ),
     )
 
     ArchiveParser().parse(workflow_input, workflow_archive, logger)
@@ -106,7 +109,9 @@ def test_workflow_archive_yaml():
     assert neb_workflow.name == 'NEB'
 
     # Checking if total energy differences can be extracted
-    energy_differences = neb_workflow.neb_workflow_results.get('total_energy_differences')
+    energy_differences = neb_workflow.neb_workflow_results.get(
+        'total_energy_differences'
+    )
     assert energy_differences is not None
     assert len(energy_differences) == 6
 
@@ -117,5 +122,6 @@ def test_workflow_archive_yaml():
     # import json
     # with open('output_AlCo2S4.json', 'w') as f:
     #     json.dump(workflow_archive.m_to_dict(), f, indent=4)
+
 
 test_workflow_archive_yaml()
