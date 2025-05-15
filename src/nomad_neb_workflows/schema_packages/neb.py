@@ -26,7 +26,8 @@ m_package = SchemaPackage()
 class NEBWorkflowResults(ArchiveSection):
     """
     A section used to define the results of a Nudged Elastic Band (NEB) workflow. This section contains
-    information about the total energy differences and the path of configurations in the NEB workflow.
+    information about the total energy differences and the path of configurations in the NEB workflow
+    and will be filled automatically during the workflow normalization based on the linked input calculations.
     """
 
     total_energy_differences = Quantity(
