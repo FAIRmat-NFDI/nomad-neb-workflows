@@ -91,13 +91,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         description='Name of the workflow. Default set to `NEB Calculation`.',
     )
 
-    neb_workflow_results = SubSection(
+    results = SubSection(
         section_def=NEBWorkflowResults,
         repeats=False,
         description='Results of the NEB workflow.',
     )
 
-    def extend_workflow(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
+    def create_workflow_task_and_output(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         """
         Extend the workflow file with tasks and output from the input.
         Args:
@@ -105,49 +105,96 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             logger (BoundLogger): The logger to log messages.
         """
 
-        if self.inputs and len(self.inputs) > 3 and not self.tasks:
-            if self.tasks == []:
-                # Initialize the tasks list if it is None
-                self.tasks = []
-                for i in range(len(self.inputs)):
-                    # Create a new task for each image
-                    task = TaskReference()
-                    input = Link()
-                    output = Link()
-                    output_system = Link()
+        # if not self.tasks:
+        #     # Initialize the tasks list as an MSubSectionList if it is None
+        #     self.tasks = self.m_create(SubSection, 'tasks')
+        for i in range(len(self.inputs)):
+            # Create a new task for each image
+            task = TaskReference()
+            input = Link()
+            output = Link()
+            output_system = Link()
 
-                    if i == 0:
-                        task.name = 'Initial Image Simulation'
-                        input.section = self.inputs[0].section.system[-1]
-                        task.inputs.append(input)
-                        output.section = self.inputs[0].section.calculation[-1]
-                        task.outputs.append(output)
-                    elif i < len(self.inputs) - 1:
-                        task.name = f'Image {i} Simulation'
-                        input.section = self.inputs[i - 1].section.system[-1]
-                        task.inputs.append(input)
-                        output.section = self.inputs[i].section.calculation[-1]
-                        task.outputs.append(output)
-                        output_system.section = self.inputs[i].section.system[-1]
-                        task.outputs.append(output_system)
-                    elif i == len(self.inputs) - 1:
-                        task.name = 'Final Image Simulation'
-                        input.section = self.inputs[-1].section.system[0]
-                        task.inputs.append(input)
-                        output.section = self.inputs[-1].section.calculation[-1]
-                        task.outputs.append(output)
-                    self.tasks.append(task)
-            if self.outputs == []:
-                output = Link()
-                output.section = self.neb_workflow_results
-                output.name = 'NEB Workflow Results'
-                self.outputs.append(output)
+            if i == 0:
+                task.name = 'Initial Image Simulation'
+                input.section = self.inputs[0].section.system[-1]
+                task.inputs.append(input)
+                output.section = self.inputs[0].section.calculation[-1]
+                task.outputs.append(output)
+            elif i < len(self.inputs) - 1:
+                task.name = f'Image {i} Simulation'
+                input.section = self.inputs[i - 1].section.system[-1]
+                task.inputs.append(input)
+                output.section = self.inputs[i].section.calculation[-1]
+                task.outputs.append(output)
+                output_system.section = self.inputs[i].section.system[-1]
+                task.outputs.append(output_system)
+            elif i == len(self.inputs) - 1:
+                task.name = 'Final Image Simulation'
+                input.section = self.inputs[-1].section.system[0]
+                task.inputs.append(input)
+                output.section = self.inputs[-1].section.calculation[-1]
+                task.outputs.append(output)
+            self.tasks.append(task)
+        if self.outputs == []:
+            output = Link()
+            output.section = self.results
+            output.name = 'NEB Workflow Results'
+            self.outputs.append(output)
+
+    def create_workflow_tasks_input_output_and_output(
+        self, archive: 'EntryArchive', logger: 'BoundLogger'
+    ) -> None:
+        for i,task in enumerate(self.tasks):
+            input = Link()
+            output = Link()
+            if i == 0:
+                input.section = self.inputs[0].section
+                input.name = self.inputs[0].name
+                task.inputs.append(input)
+                self._systems.append(self.inputs[0].section.system[-1])
+                self._systems.append(self.tasks[0].section.system[-1])
+                self._calculations.append(self.inputs[0].section.calculation[-1])
+                self._calculations.append(self.tasks[0].section.calculation[-1])
+                output.section = self.tasks[0].section
+                output.name = self.tasks[0].name
+                task.outputs.append(output)
+            elif i > 0 and i < len(self.tasks) - 1:
+                input.section = self.tasks[i-1].section
+                input.name = self.tasks[i-1].name
+                task.inputs.append(input)
+                output.section = self.tasks[i+1].section
+                output.name = self.tasks[i+1].name
+                task.outputs.append(output)
+                self._systems.append(task.section.system[-1])
+                self._calculations.append(task.section.calculation[-1])
+            elif i == len(self.tasks) - 1:
+                input.section = self.tasks[-2].section
+                input.name = self.tasks[-2].name
+                task.inputs.append(input)
+                output.section = self.inputs[-1].section
+                output.name = self.inputs[-1].name
+                task.outputs.append(output)
+                self._systems.append(self.tasks[-1].section.system[-1])
+                self._calculations.append(self.tasks[-1].section.calculation[-1])
+                self._systems.append(self.inputs[-1].section.system[-1])
+                self._calculations.append(self.inputs[-1].section.calculation[-1])
+        
+        assert len(self._systems) == len(self._calculations)
+        assert len(self._systems) == len(self.tasks)+2
+        logger.info('successfully created NEB workflow tasks and outputs.')
+
+        if self.outputs == []:
+            output = Link()
+            output.section = self.results
+            output.name = 'NEB Workflow Results'
+            self.outputs.append(output)
 
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
     ) -> Optional[pint.Quantity]:
         """
-        Extracts the total energy differences from the task outputs of the NEB workflow.
+        Extracts the total energy differences from the input and task  sections of the NEB workflow.
 
         Args:
             logger (BoundLogger): The logger to log messages.
@@ -163,15 +210,15 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             )
             return None
 
-        energy_reference = self.inputs[0].section.calculation[-1].energy.total.value.m
-        energy_units = self.inputs[0].section.calculation[-1].energy.total.value.u
+        energy_reference = self._calculations[0].energy.total.value.m
+        energy_units = self._calculations[0].energy.total.value.u
 
         # Append the energy differences of the images w.r.t. the reference of energies
         tot_energies = []
-        for input in self.inputs:
-            if input.section.calculation[-1].energy.total.value is not None:
+        for calculation in self._calculations:
+            if calculation.energy.total.value is not None:
                 tot_energies.append(
-                    input.section.calculation[-1].energy.total.value.m
+                    calculation.energy.total.value.m
                     - energy_reference
                 )
             else:
@@ -193,13 +240,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         """
 
         path = []
-        initial_position = self.inputs[0].section.system[-1].atoms.positions.m
-        path_unit = self.inputs[0].section.system[-1].atoms.positions.u
+        initial_position = self._systems[0].atoms.positions.m
+        path_unit = self._systems[0].atoms.positions.u
         cell = self.inputs[0].section.system[-1].atoms.lattice_vectors
         pbc = self.inputs[0].section.system[-1].atoms.periodic
-        for input in self.inputs:
-            if input.section.system[-1].atoms.positions is not None:
-                dR = input.section.system[-1].atoms.positions.m - initial_position
+        for system in self._systems:
+            if system.atoms.positions is not None:
+                dR = system.atoms.positions.m - initial_position
                 # if cell is not None and pbc is not None:
                 #     from ase.geometry import find_mic
                 #     dR, _ = find_mic(dR, cell, pbc)
@@ -213,9 +260,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
     def get_ase_forces(self, logger: 'BoundLogger') -> Optional[Quantity]:
         ase_forces = []
-        for input in self.inputs:
-            if input.section.calculation[-1].forces.total.value is not None:
-                force = input.section.calculation[-1].forces.total.value.to(
+        for calculation in self._calculations:
+            if calculation.forces.total.value is not None:
+                force = calculation.forces.total.value.to(
                     'eV/angstrom'
                 )
                 ase_force = np.transpose(force.m)
@@ -226,9 +273,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
     def get_ase_positions(self, logger: 'BoundLogger') -> Optional[Quantity]:
         ase_positions = []
-        for input in self.inputs:
-            if input.section.system[-1].atoms.positions is not None:
-                position = input.section.system[-1].atoms.positions.to('angstrom')
+        for system in self._systems:
+            if system.atoms.positions is not None:
+                position = system.atoms.positions.to('angstrom')
                 ase_position = np.transpose(position.m)
                 ase_positions.append(ase_position)
             else:
@@ -237,15 +284,15 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
     def plot_energy_vs_position(self, logger: 'BoundLogger') -> None:
         if (
-            self.neb_workflow_results.total_energy_differences is not None
-            and len(self.neb_workflow_results.total_energy_differences) > 0
+            self.results.total_energy_differences is not None
+            and len(self.results.total_energy_differences) > 0
         ):
             # If energies are stored as pint.Quantity, extract magnitude and unit
-            if hasattr(self.neb_workflow_results.total_energy_differences, 'm'):
-                magnitudes = self.neb_workflow_results.total_energy_differences.m
-                unit = str(self.neb_workflow_results.total_energy_differences.u)
+            if hasattr(self.results.total_energy_differences, 'm'):
+                magnitudes = self.results.total_energy_differences.m
+                unit = str(self.results.total_energy_differences.u)
             else:
-                magnitudes = self.neb_workflow_results.total_energy_differences
+                magnitudes = self.results.total_energy_differences
                 unit = 'eV'  # Default unit if missing
 
             # Custom unit mapping
@@ -257,9 +304,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 # Add more mappings as needed
             }
 
-            if hasattr(self.neb_workflow_results.path, 'u'):
-                path_values = self.neb_workflow_results.path.m
-                unit_path = str(self.neb_workflow_results.path.u)
+            if hasattr(self.results.path, 'u'):
+                path_values = self.results.path.m
+                unit_path = str(self.results.path.u)
 
             # Use pint to format the unit in a pretty way
             ureg = pint.UnitRegistry(system='short')
@@ -297,7 +344,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     def fit_and_plot_energy_vs_position_ase(self, logger: 'BoundLogger') -> Quantity:
         forces_ase = self.get_ase_forces(logger=logger)
         positions = self.get_ase_positions(logger=logger)
-        magnitudes = self.neb_workflow_results.total_energy_differences.m
+        magnitudes = self.results.total_energy_differences.m
 
         pretty_unit = 'eV'
         pretty_unit_path = 'Å'
@@ -346,10 +393,10 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 xanchor='left',
             )
 
-        fig1.update_layout(title='NEB Energy Profile ASE', template='plotly_white')
+        fig1.update_layout(title='NEB plot with ASE fit', template='plotly_white')
 
         self.figures.append(
-            PlotlyFigure(label='NEB Workflow ASE Fit', figure=fig1.to_plotly_json())
+            PlotlyFigure(label='NEB plot with ASE fit', figure=fig1.to_plotly_json())
         )
 
         return Ef_fit
@@ -357,15 +404,31 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
 
-        try:
-            if self.neb_workflow_results is None:
-                # Initialize the NEB workflow results section if it doesn't exist
-                self.neb_workflow_results = NEBWorkflowResults()
-            self.neb_workflow_results.total_energy_differences = (
-                self.extract_total_energy_differences(logger=logger)
-            )
-        except Exception:
-            logger.error('Could not set NEBWorkflow.total_energy_differences.')
+        if self.inputs and len(self.inputs) >= 2:
+            # Check if the inputs are a list of NEB images
+            if not all(
+                isinstance(input, Link) and input.section.system[-1] is not None
+                for input in self.inputs
+            ):
+                logger.error('Inputs are not a list of NEB images.')
+                return
+            if not self.tasks or len(self.tasks) == 0:
+                self.create_workflow_task_and_output(archive=archive, logger=logger)
+            elif len(self.tasks) >= 1 and len(self.inputs) == 2:
+                self.create_workflow_tasks_input_output_and_output(
+                    archive=archive, logger=logger
+                )
+                
+        
+        # try:
+        if self.results is None:
+            # Initialize the NEB workflow results section if it doesn't exist
+            self.results = NEBWorkflowResults()
+        self.results.total_energy_differences = (
+            self.extract_total_energy_differences(logger=logger)
+        )
+        # except Exception:
+        #     logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
         # Extract system name from input structure (chemical composition of first image)
         try:
@@ -383,23 +446,23 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         else:
             archive.metadata.entry_name = 'NEB Calculation'
 
-        self.neb_workflow_results.reaction_energy = (
-            self.neb_workflow_results.total_energy_differences[-1]
+        self.results.reaction_energy = (
+            self.results.total_energy_differences[-1]
         )
-        self.neb_workflow_results.activation_energy = (
-            max(self.neb_workflow_results.total_energy_differences)
-            - self.neb_workflow_results.total_energy_differences[0]
+        self.results.activation_energy = (
+            max(self.results.total_energy_differences)
+            - self.results.total_energy_differences[0]
         )
         try:
             path_distance = self.extract_path(logger=logger)
-            self.neb_workflow_results.path = path_distance
+            self.results.path = path_distance
         except Exception as e:
             logger.error(f'Could not set NEBWorkflow.path: {e}')
 
         # Generate NEB energy plot using Plotly Express and store it in self.figures
         try:
             Ef_fit = self.fit_and_plot_energy_vs_position_ase(logger=logger)
-            self.neb_workflow_results.activation_energy_fitted = Ef_fit
+            self.results.activation_energy_fitted = Ef_fit
 
         except Exception as e:
             logger.error(f'Error while generating NEB energy plot with fit: {e}')
@@ -410,8 +473,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     'Could not generate NEB figure. Error while generating NEB'
                     f'energy plot: {e}'
                 )
-
-        self.extend_workflow(archive=archive, logger=logger)
-
+        if not archive.run:
+            from runschema.run import Run, Program
+            run = Run(program=Program())
+            try:
+                run.system.extend([self.inputs[0].section.system[-1]])
+            except Exception:
+                logger.warning('Failed to link structure from first input archive. ')
+            archive.run.append(run)
 
 m_package.__init_metainfo__()
