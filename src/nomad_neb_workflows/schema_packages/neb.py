@@ -149,13 +149,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             input = Link()
             output = Link()
             if i == 0:
-                input.section = self.inputs[0].section
+                input.section = self.inputs[0].section.run[0]
                 input.name = self.inputs[0].name
                 task.inputs.append(input)
-                self._systems.append(self.inputs[0].section.system[-1])
-                self._systems.append(self.tasks[0].section.system[-1])
-                self._calculations.append(self.inputs[0].section.calculation[-1])
-                self._calculations.append(self.tasks[0].section.calculation[-1])
+                self._systems.append(self.inputs[0].section.run[0].system[-1])
+                self._systems.append(self.tasks[0].section.run[0].system[-1])
+                self._calculations.append(self.inputs[0].section.run[0].calculation[-1])
+                self._calculations.append(self.tasks[0].section.run[0].calculation[-1])
                 output.section = self.tasks[0].section
                 output.name = self.tasks[0].name
                 task.outputs.append(output)
@@ -163,22 +163,22 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 input.section = self.tasks[i-1].section
                 input.name = self.tasks[i-1].name
                 task.inputs.append(input)
-                output.section = self.tasks[i+1].section
-                output.name = self.tasks[i+1].name
+                output.section = self.tasks[i].section
+                output.name = self.tasks[i].name
                 task.outputs.append(output)
-                self._systems.append(task.section.system[-1])
-                self._calculations.append(task.section.calculation[-1])
+                self._systems.append(self.tasks[i].section.run[0].system[-1])
+                self._calculations.append(self.tasks[i].section.run[0].calculation[-1])
             elif i == len(self.tasks) - 1:
                 input.section = self.tasks[-2].section
                 input.name = self.tasks[-2].name
                 task.inputs.append(input)
-                output.section = self.inputs[-1].section
+                output.section = self.inputs[-1].section.run[0]
                 output.name = self.inputs[-1].name
                 task.outputs.append(output)
-                self._systems.append(self.tasks[-1].section.system[-1])
-                self._calculations.append(self.tasks[-1].section.calculation[-1])
-                self._systems.append(self.inputs[-1].section.system[-1])
-                self._calculations.append(self.inputs[-1].section.calculation[-1])
+                self._systems.append(self.tasks[-1].section.run[0].system[-1])
+                self._calculations.append(self.tasks[-1].section.run[0].calculation[-1])
+                self._systems.append(self.inputs[-1].section.run[0].system[-1])
+                self._calculations.append(self.inputs[-1].section.run[0].calculation[-1])
         
         assert len(self._systems) == len(self._calculations)
         assert len(self._systems) == len(self.tasks)+2
@@ -204,7 +204,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             of configurations in units of energy.
         """
         # Resolve the reference of energies from the first NEB task
-        if self.inputs[0].section.calculation[-1].energy.total.value is None:
+        if self.inputs[0].section.run[0].calculation[-1].energy.total.value is None:
             logger.error(
                 'Could not resolve the initial value of the total energy for referencing.'
             )
@@ -242,8 +242,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         path = []
         initial_position = self._systems[0].atoms.positions.m
         path_unit = self._systems[0].atoms.positions.u
-        cell = self.inputs[0].section.system[-1].atoms.lattice_vectors
-        pbc = self.inputs[0].section.system[-1].atoms.periodic
+        
+        cell = self._systems[0].atoms.lattice_vectors
+        for i in range(1, len(self._systems)):
+            assert (cell == self._systems[i].atoms.lattice_vectors).all(), (
+                'The lattice vectors of the systems in the NEB workflow are not consistent.'
+            )
+        pbc = self._systems[0].atoms.periodic
         for system in self._systems:
             if system.atoms.positions is not None:
                 dR = system.atoms.positions.m - initial_position
@@ -407,7 +412,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         if self.inputs and len(self.inputs) >= 2:
             # Check if the inputs are a list of NEB images
             if not all(
-                isinstance(input, Link) and input.section.system[-1] is not None
+                isinstance(input, Link) and input.section.run[0].system[-1] is not None
                 for input in self.inputs
             ):
                 logger.error('Inputs are not a list of NEB images.')
@@ -418,8 +423,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 self.create_workflow_tasks_input_output_and_output(
                     archive=archive, logger=logger
                 )
-                
-        
+
         # try:
         if self.results is None:
             # Initialize the NEB workflow results section if it doesn't exist
@@ -432,7 +436,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Extract system name from input structure (chemical composition of first image)
         try:
-            system_name = self.inputs[0].section.system[-1].chemical_composition_hill
+            system_name = self._systems[0].chemical_composition_hill
         except (KeyError, IndexError, AttributeError):
             logger.warning(
                 'Could not extract system name from the first image in the NEB workflow.'
@@ -473,11 +477,20 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     'Could not generate NEB figure. Error while generating NEB'
                     f'energy plot: {e}'
                 )
+        # if not archive.results.material:
+        #     from nomad.datamodel.results import Material
+        #     archive.results.material = Material()
+
+        # material = self.inputs[0].section.results.material
+        # # except Exception:
+        # #     logger.warning('Failed to link structure from first input archive. ')
+        # archive.results.material = material
+
         if not archive.run:
             from runschema.run import Run, Program
             run = Run(program=Program())
             try:
-                run.system.extend([self.inputs[0].section.system[-1]])
+                run.system.extend([self.inputs[0].section.run[0].system[-1]])
             except Exception:
                 logger.warning('Failed to link structure from first input archive. ')
             archive.run.append(run)
