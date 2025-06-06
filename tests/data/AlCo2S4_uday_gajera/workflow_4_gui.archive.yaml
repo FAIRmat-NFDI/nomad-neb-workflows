@@ -1,5 +1,6 @@
 workflow2:
   m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  name: 'AlCo2S4 NEB Workflow'
   inputs:
     - name: Input structure for reference image
       section:  '../upload/archive/mainfile/AlCo2S4/neb/00/OUTCAR#/'

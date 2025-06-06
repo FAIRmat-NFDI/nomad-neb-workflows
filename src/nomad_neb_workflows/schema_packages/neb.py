@@ -408,13 +408,11 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Dynamically set entry name
         archive.metadata.entry_type = 'NEB Workflow'
-        if self.inputs[0].name is not ["Input for initial image"]:
+        if self.name is not None:
+            archive.metadata.entry_name = self.name ##difference between workflow name and entry name? do we want to differentiate?
+        elif self.inputs[0].name is not ["Input for initial image"]:
             new_entry_name = self.inputs[0].name.replace('Input','').replace('for','')
             archive.metadata.entry_name = new_entry_name
-        # elif system_name is not None:
-        #     archive.metadata.entry_name = f'{system_name} NEB Calculation'
-        # else:
-        #     archive.metadata.entry_name = 'NEB Calculation'
 
         self.results.reaction_energy = (
             self.results.total_energy_differences[-1]

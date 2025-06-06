@@ -1,5 +1,6 @@
 workflow2:
   m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  name: 'NEB Workflow'
   inputs:
     - name: Input structure for initial image
       section:  '/uploads/NEB_testdata/archive/ase_entry0#/'
