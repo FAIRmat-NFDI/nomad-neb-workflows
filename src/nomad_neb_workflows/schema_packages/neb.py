@@ -27,7 +27,7 @@ class NEBWorkflowResults(ArchiveSection):
     """
     A section used to define the results of a Nudged Elastic Band (NEB) workflow. This section contains
     information about the total energy differences and the path of configurations in the NEB workflow
-    and will be filled automatically during the workflow normalization based on the linked input calculations.
+    and will be filled automatically during the workflow normalization based on the linked inputs and tasks calculations.
     """
 
     total_energy_differences = Quantity(
@@ -82,7 +82,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     a series of intermediate configurations (or images) between the initial and final states, and then optimize
     these images to trace the most energetically favorable path.
 
-    This workflow is useful to extract reactivities and catalytic properties, energy barriers, etc.
+    This workflow is useful to extract reaction barriers and energies from a given list
+    of images with energy calculations. The workflow yaml should contain a list of entries for initial and final
+    states as inputs and references to the image entries in the path between as tasks, ideally containing the
+    transition state as well. We currently have also implemented an ase functionality that tries to perform a fit
+    if the forces are available from the calculation.
+
+
     """
 
     name = Quantity(
@@ -96,51 +102,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         repeats=False,
         description='Results of the NEB workflow.',
     )
-
-    def create_workflow_task_and_output(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
-        """
-        Extend the workflow file with tasks and output from the input.
-        Args:
-            archive (EntryArchive): The archive to extend.
-            logger (BoundLogger): The logger to log messages.
-        """
-
-        # if not self.tasks:
-        #     # Initialize the tasks list as an MSubSectionList if it is None
-        #     self.tasks = self.m_create(SubSection, 'tasks')
-        for i in range(len(self.inputs)):
-            # Create a new task for each image
-            task = TaskReference()
-            input = Link()
-            output = Link()
-            output_system = Link()
-
-            if i == 0:
-                task.name = 'Initial Image Simulation'
-                input.section = self.inputs[0].section.system[-1]
-                task.inputs.append(input)
-                output.section = self.inputs[0].section.calculation[-1]
-                task.outputs.append(output)
-            elif i < len(self.inputs) - 1:
-                task.name = f'Image {i} Simulation'
-                input.section = self.inputs[i - 1].section.system[-1]
-                task.inputs.append(input)
-                output.section = self.inputs[i].section.calculation[-1]
-                task.outputs.append(output)
-                output_system.section = self.inputs[i].section.system[-1]
-                task.outputs.append(output_system)
-            elif i == len(self.inputs) - 1:
-                task.name = 'Final Image Simulation'
-                input.section = self.inputs[-1].section.system[0]
-                task.inputs.append(input)
-                output.section = self.inputs[-1].section.calculation[-1]
-                task.outputs.append(output)
-            self.tasks.append(task)
-        if self.outputs == []:
-            output = Link()
-            output.section = self.results
-            output.name = 'NEB Workflow Results'
-            self.outputs.append(output)
 
     def create_workflow_tasks_input_output_and_output(
         self, archive: 'EntryArchive', logger: 'BoundLogger'
@@ -418,7 +379,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 logger.error('Inputs are not a list of NEB images.')
                 return
             if not self.tasks or len(self.tasks) == 0:
-                self.create_workflow_task_and_output(archive=archive, logger=logger)
+                logger.warning(
+                    'No tasks found in the NEB workflow.'
+                )
             elif len(self.tasks) >= 1 and len(self.inputs) == 2:
                 self.create_workflow_tasks_input_output_and_output(
                     archive=archive, logger=logger
@@ -445,10 +408,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Dynamically set entry name
         archive.metadata.entry_type = 'NEB Workflow'
-        if system_name is not None:
-            archive.metadata.entry_name = f'{system_name} NEB Calculation'
-        else:
-            archive.metadata.entry_name = 'NEB Calculation'
+        if self.inputs[0].name is not ["Input for initial image"]:
+            new_entry_name = self.inputs[0].name.replace('Input','').replace('for','')
+            archive.metadata.entry_name = new_entry_name
+        # elif system_name is not None:
+        #     archive.metadata.entry_name = f'{system_name} NEB Calculation'
+        # else:
+        #     archive.metadata.entry_name = 'NEB Calculation'
 
         self.results.reaction_energy = (
             self.results.total_energy_differences[-1]
@@ -477,22 +443,16 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     'Could not generate NEB figure. Error while generating NEB'
                     f'energy plot: {e}'
                 )
-        # if not archive.results.material:
-        #     from nomad.datamodel.results import Material
-        #     archive.results.material = Material()
-
-        # material = self.inputs[0].section.results.material
-        # # except Exception:
-        # #     logger.warning('Failed to link structure from first input archive. ')
-        # archive.results.material = material
-
+        # Add run section from initial input in order to allow automatic visualization of system
         if not archive.run:
             from runschema.run import Run, Program
             run = Run(program=Program())
             try:
                 run.system.extend([self.inputs[0].section.run[0].system[-1]])
-            except Exception:
-                logger.warning('Failed to link structure from first input archive. ')
+                run.calculation.extend([self.inputs[0].section.run[0].calculation[-1]])
+                run.method = self.inputs[0].section.run[0].method
+            except Exception as e:
+                logger.warning(f'Failed to link structure from first input archive. Error: {e}')
             archive.run.append(run)
 
 m_package.__init_metainfo__()

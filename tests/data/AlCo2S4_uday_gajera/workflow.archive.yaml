@@ -2,15 +2,17 @@ workflow2:
   m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
   inputs:
     - name: Calculation for reference image
-      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry0#/run/0/'
-    - name: Calculation for image 2
-      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry1#/run/0/'
-    - name: Calculation for image 3
-      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry2#/run/0/'
-    - name: Calculation for image 4
-      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry3#/run/0/'
-    - name: Calculation for image 5
-      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry4#/run/0/'
+      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry0#/'
     - name: Calculation for image 6
-      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry5#/run/0/'
+      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry5#/'
+  tasks:
+    - name: Calculation for image 2
+      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry1#/'
+    - name: Calculation for image 3
+      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry2#/'
+    - name: Calculation for image 4
+      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry3#/'
+    - name: Calculation for image 5
+      section:  '/uploads/NEB_testdata_AlCo2S4/archive/entry4#/'
+
 
