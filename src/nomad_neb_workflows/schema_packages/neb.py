@@ -7,12 +7,16 @@ if TYPE_CHECKING:
     from nomad.datamodel.datamodel import EntryArchive
     from structlog.stdlib import BoundLogger
 
+from ase.utils.forcecurve import fit_raw, ForceFit
+
 from nomad.config import config
 from nomad.metainfo import Quantity, SchemaPackage, Quantity, SubSection
 from simulationworkflowschema.general import SimulationWorkflow
 from nomad.datamodel.data import ArchiveSection
 from nomad.datamodel.metainfo.plot import PlotSection, PlotlyFigure
-from nomad.datamodel.metainfo.workflow import TaskReference, Link
+from nomad.datamodel.metainfo.workflow import Task, TaskReference, Link
+from nomad.datamodel.results import System, Material
+from nomad.normalizing.topology import add_system, add_system_info
 from nomad.units import ureg
 from typing import List, Optional
 
@@ -106,57 +110,71 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     def create_workflow_tasks_input_output_and_output(
         self, archive: 'EntryArchive', logger: 'BoundLogger'
     ) -> None:
+        """
+        This method sets up the input and output links for each task. The inputs are links
+        to the neighboring images of the neb path and outputs of individual tasks
+        are links to the final system and calculation section of the image corresponding to
+        the task itself.
+        It also collects the systems and calculations from the inputs
+        and tasks in self._systems and self._calculations to be used
+        further to calculate the workflow output.
+        Args:
+            archive (EntryArchive): The archive to which the workflow belongs.
+            logger (BoundLogger): The logger to log messages.
+        """
+
         for i,task in enumerate(self.tasks):
             input = Link()
             output = Link()
             if i == 0:
-                input.section = self.inputs[0].section.run[0]
+                input.section = self.inputs[0].section
                 input.name = self.inputs[0].name
+                task.inputs.append(input)
+                input = Link()  # Reset input for 2nd input
+                input.section = self.tasks[i+1].section
+                input.name = self.tasks[i+1].name
                 task.inputs.append(input)
                 self._systems.append(self.inputs[0].section.run[0].system[-1])
                 self._systems.append(self.tasks[0].section.run[0].system[-1])
                 self._calculations.append(self.inputs[0].section.run[0].calculation[-1])
                 self._calculations.append(self.tasks[0].section.run[0].calculation[-1])
-                output.section = self.tasks[0].section
-                output.name = self.tasks[0].name
-                task.outputs.append(output)
-            elif i > 0 and i < len(self.tasks) - 1:
+            elif i > 0:
                 input.section = self.tasks[i-1].section
                 input.name = self.tasks[i-1].name
                 task.inputs.append(input)
-                output.section = self.tasks[i].section
-                output.name = self.tasks[i].name
-                task.outputs.append(output)
+                if i < len(self.tasks) - 1:
+                    input = Link()  # Reset input for next iteration
+                    input.section = self.tasks[i+1].section
+                    input.name = self.tasks[i+1].name
+                    task.inputs.append(input)
                 self._systems.append(self.tasks[i].section.run[0].system[-1])
                 self._calculations.append(self.tasks[i].section.run[0].calculation[-1])
-            elif i == len(self.tasks) - 1:
-                input.section = self.tasks[-2].section
-                input.name = self.tasks[-2].name
-                task.inputs.append(input)
-                output.section = self.inputs[-1].section.run[0]
-                output.name = self.inputs[-1].name
-                task.outputs.append(output)
-                self._systems.append(self.tasks[-1].section.run[0].system[-1])
-                self._calculations.append(self.tasks[-1].section.run[0].calculation[-1])
-                self._systems.append(self.inputs[-1].section.run[0].system[-1])
-                self._calculations.append(self.inputs[-1].section.run[0].calculation[-1])
-        
+                # Add the final state as the last system and calculation
+                if i == len(self.tasks) - 1:
+                    input = Link()  # Reset input for next iteration
+                    input.section = self.inputs[-1].section
+                    input.name = self.inputs[-1].name
+                    task.inputs.append(input)
+                    self._systems.append(self.inputs[-1].section.run[0].system[-1])
+                    self._calculations.append(self.inputs[-1].section.run[0].calculation[-1])
+            output.section = self.tasks[0].section.run[0].system[-1]
+            output.name = self.tasks[0].name+' structure'
+            task.outputs.append(output)
+            output = Link()  # Reset output for 2nd output
+            output.section = self.tasks[0].section.run[0].calculation[-1]
+            output.name = self.tasks[0].name+' calculation'
+            task.outputs.append(output)
         assert len(self._systems) == len(self._calculations)
         assert len(self._systems) == len(self.tasks)+2
         logger.info('successfully created NEB workflow tasks and outputs.')
 
-        if self.outputs == []:
-            output = Link()
-            output.section = self.results
-            output.name = 'NEB Workflow Results'
-            self.outputs.append(output)
 
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
     ) -> Optional[pint.Quantity]:
         """
-        Extracts the total energy differences from the input and task  sections of the NEB workflow.
-
+        Extracts the total energy differences from self._calculations, which contain the energies
+        of the system for each of the images in the path of configurations in the NEB workflow
         Args:
             logger (BoundLogger): The logger to log messages.
 
@@ -165,7 +183,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             of configurations in units of energy.
         """
         # Resolve the reference of energies from the first NEB task
-        if self.inputs[0].section.run[0].calculation[-1].energy.total.value is None:
+        if (self.inputs[0].section.run[0].calculation[-1].energy.total.value is None or
+            self._calculations[0].energy.total.value is None):
             logger.error(
                 'Could not resolve the initial value of the total energy for referencing.'
             )
@@ -190,7 +209,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
     def extract_path(self, logger: 'BoundLogger') -> Optional[pint.Quantity]:
         """
-        Extracts the path of configurations from the NEB workflow.
+        Extracts the path of configurations from self._systems of the NEB workflow.
 
         Args:
             logger (BoundLogger): The logger to log messages.
@@ -203,7 +222,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         path = []
         initial_position = self._systems[0].atoms.positions.m
         path_unit = self._systems[0].atoms.positions.u
-        
+
         cell = self._systems[0].atoms.lattice_vectors
         for i in range(1, len(self._systems)):
             assert (cell == self._systems[i].atoms.lattice_vectors).all(), (
@@ -225,6 +244,16 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         return path * path_unit
 
     def get_ase_forces(self, logger: 'BoundLogger') -> Optional[Quantity]:
+        """
+        Extracts the forces from self._calculations and converts them to ASE format for them
+        to be plotted as slopes in the NEB figure of the workflow and to calculate a fit
+        for the NEB path.
+        Args:
+            logger (BoundLogger): The logger to log messages.
+        Returns:
+            Optional[Quantity]: The forces of the system for each of the images in the path
+            of configurations in the NEB workflow, converted to ASE format.
+        """
         ase_forces = []
         for calculation in self._calculations:
             if calculation.forces.total.value is not None:
@@ -238,6 +267,15 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         return ase_forces
 
     def get_ase_positions(self, logger: 'BoundLogger') -> Optional[Quantity]:
+        """
+        Extracts the positions from self._systems and converts them to ASE format for them
+        to be plotted as x-axis in the NEB figure of the workflow.
+        Args:
+            logger (BoundLogger): The logger to log messages.
+        Returns:
+            Optional[Quantity]: The positions of the system for each of the images in the path
+            of configurations in the NEB workflow, converted to ASE format.
+        """
         ase_positions = []
         for system in self._systems:
             if system.atoms.positions is not None:
@@ -249,6 +287,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         return ase_positions
 
     def plot_energy_vs_position(self, logger: 'BoundLogger') -> None:
+        """
+        Plots the energy differences of the system for each of the images in the path of configurations
+        in the NEB workflow using Plotly Express. The x-axis represents the reaction coordinate (
+        path distances), and the y-axis represents the energy differences relative to the first image.
+        Args:
+            logger (BoundLogger): The logger to log messages.
+        """
         if (
             self.results.total_energy_differences is not None
             and len(self.results.total_energy_differences) > 0
@@ -299,23 +344,26 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             fig.add_scatter(
                 x=path_values, y=magnitudes, mode='lines', line=dict(shape='linear')
             )
-
             fig.update_layout(title='NEB Energy Profile', template='plotly_white')
-
-            # Convert to NOMAD-compatible PlotlyFigure
             self.figures.append(
                 PlotlyFigure(label='NEB Workflow', figure=fig.to_plotly_json())
             )
 
     def fit_and_plot_energy_vs_position_ase(self, logger: 'BoundLogger') -> Quantity:
+        """
+        Fits the energy differences of the system for each of the images in the path of configurations
+        in the NEB workflow using ASE's force curve fitting and plots the results using Plotly
+        Args:
+            logger (BoundLogger): The logger to log messages.
+        Returns:
+            Quantity: The activation energy determined from the fit to the NEB path.
+        """
         forces_ase = self.get_ase_forces(logger=logger)
         positions = self.get_ase_positions(logger=logger)
         magnitudes = self.results.total_energy_differences.m
 
         pretty_unit = 'eV'
         pretty_unit_path = 'Å'
-
-        from ase.utils.forcecurve import fit_raw, ForceFit
 
         ForceFit = fit_raw(magnitudes, forces_ase, positions)
         fig1 = px.scatter(
@@ -360,11 +408,9 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             )
 
         fig1.update_layout(title='NEB plot with ASE fit', template='plotly_white')
-
         self.figures.append(
             PlotlyFigure(label='NEB plot with ASE fit', figure=fig1.to_plotly_json())
         )
-
         return Ef_fit
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
@@ -373,29 +419,41 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         if self.inputs and len(self.inputs) >= 2:
             # Check if the inputs are a list of NEB images
             if not all(
-                isinstance(input, Link) and input.section.run[0].system[-1] is not None
+                isinstance(input, Link) and
+                input.section.run[0].system[-1] is not None and
+                input.section.run[0].calculation[-1] is not None
                 for input in self.inputs
             ):
                 logger.error('Inputs are not a list of NEB images.')
                 return
-            if not self.tasks or len(self.tasks) == 0:
-                logger.warning(
-                    'No tasks found in the NEB workflow.'
+            if len(self.inputs) > 2 and (self.tasks is None or self.tasks==[]):
+                logger.info(
+                    'No tasks defined in workflow yaml file. Creating tasks for the NEB ' \
+                    'workflow based on the inputs.'
                 )
+                for i in range(1, len(self.inputs) - 1):
+                    task = Task()
+                    task.name = f'NEB Task {i}'
+                    task.section = self.inputs[i].section
+                    self.tasks.append(task)
+                self.create_workflow_tasks_input_output_and_output(
+                    archive=archive, logger=logger
+                    )
+
             elif len(self.tasks) >= 1 and len(self.inputs) == 2:
                 self.create_workflow_tasks_input_output_and_output(
                     archive=archive, logger=logger
                 )
 
-        # try:
-        if self.results is None:
-            # Initialize the NEB workflow results section if it doesn't exist
-            self.results = NEBWorkflowResults()
-        self.results.total_energy_differences = (
-            self.extract_total_energy_differences(logger=logger)
-        )
-        # except Exception:
-        #     logger.error('Could not set NEBWorkflow.total_energy_differences.')
+        try:
+            if self.results is None:
+                # Initialize the NEB workflow results section if it doesn't exist
+                self.results = NEBWorkflowResults()
+            self.results.total_energy_differences = (
+                self.extract_total_energy_differences(logger=logger)
+            )
+        except Exception:
+            logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
         # Extract system name from input structure (chemical composition of first image)
         try:
@@ -441,16 +499,30 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     'Could not generate NEB figure. Error while generating NEB'
                     f'energy plot: {e}'
                 )
-        # Add run section from initial input in order to allow automatic visualization of system
-        if not archive.run:
-            from runschema.run import Run, Program
-            run = Run(program=Program())
-            try:
-                run.system.extend([self.inputs[0].section.run[0].system[-1]])
-                run.calculation.extend([self.inputs[0].section.run[0].calculation[-1]])
-                run.method = self.inputs[0].section.run[0].method
-            except Exception as e:
-                logger.warning(f'Failed to link structure from first input archive. Error: {e}')
-            archive.run.append(run)
+        if self.outputs == []:
+            output = Link()
+            output.section = self.results
+            output.name = 'NEB Workflow Results'
+            self.outputs.append(output)
+        # Add systems to topology in order to allow automatic visualization of systems
+
+        if not archive.results.material:
+                archive.results.material = Material()
+        topology = {}
+        for i, neb_system in enumerate(self._systems):
+            system = System(
+                    atoms=neb_system.atoms,
+                    label=f" NEB Image {i+1}",
+                    description='Calculated structure on the minimal energy path '
+                    'between an intial and final state.',
+                    structural_type=neb_system.type,
+                )
+            add_system_info(system, topology)
+            add_system(system,topology)
+
+        archive.results.material.topology = list(topology.values())
+        topology_m_proxies = dict()
+        for i, system in enumerate(archive.results.material.topology):
+                topology_m_proxies[system.label] = f'#/results/material/topology/{i}'
 
 m_package.__init_metainfo__()
