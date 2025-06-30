@@ -455,15 +455,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         except Exception:
             logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
-        # Extract system name from input structure (chemical composition of first image)
-        try:
-            system_name = self._systems[0].chemical_composition_hill
-        except (KeyError, IndexError, AttributeError):
-            logger.warning(
-                'Could not extract system name from the first image in the NEB workflow.'
-            )
-            system_name = None
-
         # Dynamically set entry name
         archive.metadata.entry_type = 'NEB Workflow'
         if self.name is not None:
@@ -471,6 +462,17 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         elif self.inputs[0].name is not ["Input for initial image"]:
             new_entry_name = self.inputs[0].name.replace('Input','').replace('for','')
             archive.metadata.entry_name = new_entry_name
+        else:
+            try:
+                system_name = self._systems[0].chemical_composition_hill
+                archive.metadata.entry_name = str(system_name)
+            except Exception:
+                logger.error(
+                    'Could not identify an entry name for the NEBWorkflow. ' \
+                    'You can set the name in the workflow.yaml directly. ' \
+                    'Using default name for now.'
+                )
+                archive.metadata.entry_name = 'NEB Workflow entry'
 
         self.results.reaction_energy = (
             self.results.total_energy_differences[-1]
@@ -504,8 +506,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             output.section = self.results
             output.name = 'NEB Workflow Results'
             self.outputs.append(output)
-        # Add systems to topology in order to allow automatic visualization of systems
 
+        # Add systems to topology in order to allow automatic visualization of systems
         if not archive.results.material:
                 archive.results.material = Material()
         topology = {}
