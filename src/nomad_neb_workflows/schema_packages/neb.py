@@ -123,7 +123,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             logger (BoundLogger): The logger to log messages.
         """
 
-        for i,task in enumerate(self.tasks):
+        for i, task in enumerate(self.tasks):
             input = Link()
             output = Link()
             if i == 0:
@@ -132,8 +132,8 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 task.inputs.append(input)
                 if len(self.tasks) > 1:
                     input = Link()  # Reset input for 2nd input
-                    input.section = self.tasks[i+1].section
-                    input.name = self.tasks[i+1].name
+                    input.section = self.tasks[i + 1].section
+                    input.name = self.tasks[i + 1].name
                     task.inputs.append(input)
                 elif len(self.tasks) == 1:
                     input = Link()
@@ -145,13 +145,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 self._calculations.append(self.inputs[0].section.run[0].calculation[-1])
                 self._calculations.append(self.tasks[0].section.run[0].calculation[-1])
             elif i > 0:
-                input.section = self.tasks[i-1].section
-                input.name = self.tasks[i-1].name
+                input.section = self.tasks[i - 1].section
+                input.name = self.tasks[i - 1].name
                 task.inputs.append(input)
                 if i < len(self.tasks) - 1:
                     input = Link()  # Reset input for next iteration
-                    input.section = self.tasks[i+1].section
-                    input.name = self.tasks[i+1].name
+                    input.section = self.tasks[i + 1].section
+                    input.name = self.tasks[i + 1].name
                     task.inputs.append(input)
                 self._systems.append(self.tasks[i].section.run[0].system[-1])
                 self._calculations.append(self.tasks[i].section.run[0].calculation[-1])
@@ -162,18 +162,19 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 input.name = self.inputs[-1].name
                 task.inputs.append(input)
                 self._systems.append(self.inputs[-1].section.run[0].system[-1])
-                self._calculations.append(self.inputs[-1].section.run[0].calculation[-1])
+                self._calculations.append(
+                    self.inputs[-1].section.run[0].calculation[-1]
+                )
             output.section = self.tasks[0].section.run[0].system[-1]
-            output.name = self.tasks[0].name+' structure'
+            output.name = self.tasks[0].name + ' structure'
             task.outputs.append(output)
             output = Link()  # Reset output for 2nd output
             output.section = self.tasks[0].section.run[0].calculation[-1]
-            output.name = self.tasks[0].name+' calculation'
+            output.name = self.tasks[0].name + ' calculation'
             task.outputs.append(output)
         assert len(self._systems) == len(self._calculations)
-        assert len(self._systems) == len(self.tasks)+2
+        assert len(self._systems) == len(self.tasks) + 2
         logger.info('successfully created NEB workflow tasks and outputs.')
-
 
     def extract_total_energy_differences(
         self, logger: 'BoundLogger'
@@ -189,8 +190,10 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             of configurations in units of energy.
         """
         # Resolve the reference of energies from the first NEB task
-        if (self.inputs[0].section.run[0].calculation[-1].energy.total.value is None or
-            self._calculations[0].energy.total.value is None):
+        if (
+            self.inputs[0].section.run[0].calculation[-1].energy.total.value is None
+            or self._calculations[0].energy.total.value is None
+        ):
             logger.error(
                 'Could not resolve the initial value of the total energy for referencing.'
             )
@@ -203,10 +206,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         tot_energies = []
         for calculation in self._calculations:
             if calculation.energy.total.value is not None:
-                tot_energies.append(
-                    calculation.energy.total.value.m
-                    - energy_reference
-                )
+                tot_energies.append(calculation.energy.total.value.m - energy_reference)
             else:
                 tot_energies.append(None)  # Handle missing values safely
 
@@ -263,9 +263,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         ase_forces = []
         for calculation in self._calculations:
             if calculation.forces.total.value is not None:
-                force = calculation.forces.total.value.to(
-                    'eV/angstrom'
-                )
+                force = calculation.forces.total.value.to('eV/angstrom')
                 ase_force = np.transpose(force.m)
                 ase_forces.append(ase_force)
             else:
@@ -422,20 +420,19 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
 
-
         if self.inputs and len(self.inputs) >= 2:
             # Check if the inputs are a list of NEB images
             if not all(
-                isinstance(input, Link) and
-                input.section.run[0].system[-1] is not None and
-                input.section.run[0].calculation[-1] is not None
+                isinstance(input, Link)
+                and input.section.run[0].system[-1] is not None
+                and input.section.run[0].calculation[-1] is not None
                 for input in self.inputs
             ):
                 logger.error('Inputs are not a list of NEB images.')
                 return
-            if len(self.inputs) > 2 and (self.tasks is None or self.tasks==[]):
+            if len(self.inputs) > 2 and (self.tasks is None or self.tasks == []):
                 logger.info(
-                    'No tasks defined in workflow yaml file. Creating tasks for the NEB ' \
+                    'No tasks defined in workflow yaml file. Creating tasks for the NEB '
                     'workflow based on the inputs.'
                 )
                 for i in range(1, len(self.inputs) - 1):
@@ -445,7 +442,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     self.tasks.append(task)
                 self.create_workflow_tasks_input_output_and_output(
                     archive=archive, logger=logger
-                    )
+                )
 
             elif len(self.tasks) >= 1 and len(self.inputs) == 2:
                 self.create_workflow_tasks_input_output_and_output(
@@ -462,9 +459,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         except Exception:
             logger.error('Could not set NEBWorkflow.total_energy_differences.')
 
-        self.results.reaction_energy = (
-            self.results.total_energy_differences[-1]
-        )
+        self.results.reaction_energy = self.results.total_energy_differences[-1]
         self.results.activation_energy = (
             max(self.results.total_energy_differences)
             - self.results.total_energy_differences[0]
@@ -497,23 +492,23 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Add systems to topology in order to allow automatic visualization of systems
         if not archive.results.material:
-                archive.results.material = Material()
-        topology = {} # type: dict[str, System]
+            archive.results.material = Material()
+        topology = {}  # type: dict[str, System]
         for i, neb_system in enumerate(self._systems):
             system = System(
-                    atoms=neb_system.atoms,
-                    label=f" NEB Image {i+1}",
-                    description='Calculated structure on the minimal energy path '
-                    'between an intial and final state.',
-                    structural_type=neb_system.type,
-                )
+                atoms=neb_system.atoms,
+                label=f' NEB Image {i + 1}',
+                description='Calculated structure on the minimal energy path '
+                'between an intial and final state.',
+                structural_type=neb_system.type,
+            )
             add_system_info(system, topology)
-            add_system(system,topology)
+            add_system(system, topology)
 
         archive.results.material.topology = list(topology.values())
         topology_m_proxies = dict()
         for i, system in enumerate(archive.results.material.topology):
-                topology_m_proxies[system.label] = f'#/results/material/topology/{i}'
+            topology_m_proxies[system.label] = f'#/results/material/topology/{i}'
 
         # Dynamically set entry name
         archive.metadata.entry_type = 'NEB Workflow'
@@ -526,5 +521,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                     'Using default workflow name "NEB Calculation" as entry_name.'
                 )
         archive.metadata.entry_name = self.name
+
 
 m_package.__init_metainfo__()

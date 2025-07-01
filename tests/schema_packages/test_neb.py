@@ -86,9 +86,7 @@ def test_workflow_archive_yaml():
     assert neb_workflow.name == 'NEB of CH3-O on CuZn(211)'
 
     # Checking if total energy differences can be extracted
-    energy_differences = neb_workflow.results.get(
-        'total_energy_differences'
-    )
+    energy_differences = neb_workflow.results.get('total_energy_differences')
     assert energy_differences is not None
     assert len(energy_differences) == 3
 
