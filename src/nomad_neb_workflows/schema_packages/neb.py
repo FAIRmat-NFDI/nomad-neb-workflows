@@ -498,7 +498,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         # Add systems to topology in order to allow automatic visualization of systems
         if not archive.results.material:
                 archive.results.material = Material()
-        topology = {}
+        topology = {} # type: dict[str, System]
         for i, neb_system in enumerate(self._systems):
             system = System(
                     atoms=neb_system.atoms,
