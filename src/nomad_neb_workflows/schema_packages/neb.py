@@ -97,7 +97,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
     name = Quantity(
         type=str,
-        default='NEB',
+        default='NEB Calculation',
         description='Name of the workflow. Default set to `NEB Calculation`.',
     )
 
@@ -130,10 +130,16 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 input.section = self.inputs[0].section
                 input.name = self.inputs[0].name
                 task.inputs.append(input)
-                input = Link()  # Reset input for 2nd input
-                input.section = self.tasks[i+1].section
-                input.name = self.tasks[i+1].name
-                task.inputs.append(input)
+                if len(self.tasks) > 1:
+                    input = Link()  # Reset input for 2nd input
+                    input.section = self.tasks[i+1].section
+                    input.name = self.tasks[i+1].name
+                    task.inputs.append(input)
+                elif len(self.tasks) == 1:
+                    input = Link()
+                    input.section = self.inputs[-1].section
+                    input.name = self.inputs[-1].name
+                    task.inputs.append(input)
                 self._systems.append(self.inputs[0].section.run[0].system[-1])
                 self._systems.append(self.tasks[0].section.run[0].system[-1])
                 self._calculations.append(self.inputs[0].section.run[0].calculation[-1])
@@ -150,13 +156,13 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 self._systems.append(self.tasks[i].section.run[0].system[-1])
                 self._calculations.append(self.tasks[i].section.run[0].calculation[-1])
                 # Add the final state as the last system and calculation
-                if i == len(self.tasks) - 1:
-                    input = Link()  # Reset input for next iteration
-                    input.section = self.inputs[-1].section
-                    input.name = self.inputs[-1].name
-                    task.inputs.append(input)
-                    self._systems.append(self.inputs[-1].section.run[0].system[-1])
-                    self._calculations.append(self.inputs[-1].section.run[0].calculation[-1])
+            if i == len(self.tasks) - 1:
+                input = Link()  # Reset input for next iteration
+                input.section = self.inputs[-1].section
+                input.name = self.inputs[-1].name
+                task.inputs.append(input)
+                self._systems.append(self.inputs[-1].section.run[0].system[-1])
+                self._calculations.append(self.inputs[-1].section.run[0].calculation[-1])
             output.section = self.tasks[0].section.run[0].system[-1]
             output.name = self.tasks[0].name+' structure'
             task.outputs.append(output)
@@ -416,6 +422,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
 
+
         if self.inputs and len(self.inputs) >= 2:
             # Check if the inputs are a list of NEB images
             if not all(
@@ -454,25 +461,6 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
             )
         except Exception:
             logger.error('Could not set NEBWorkflow.total_energy_differences.')
-
-        # Dynamically set entry name
-        archive.metadata.entry_type = 'NEB Workflow'
-        if self.name is not None:
-            archive.metadata.entry_name = self.name ##difference between workflow name and entry name? do we want to differentiate?
-        elif self.inputs[0].name is not ["Input for initial image"]:
-            new_entry_name = self.inputs[0].name.replace('Input','').replace('for','')
-            archive.metadata.entry_name = new_entry_name
-        else:
-            try:
-                system_name = self._systems[0].chemical_composition_hill
-                archive.metadata.entry_name = str(system_name)
-            except Exception:
-                logger.error(
-                    'Could not identify an entry name for the NEBWorkflow. ' \
-                    'You can set the name in the workflow.yaml directly. ' \
-                    'Using default name for now.'
-                )
-                archive.metadata.entry_name = 'NEB Workflow entry'
 
         self.results.reaction_energy = (
             self.results.total_energy_differences[-1]
@@ -526,5 +514,17 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
         topology_m_proxies = dict()
         for i, system in enumerate(archive.results.material.topology):
                 topology_m_proxies[system.label] = f'#/results/material/topology/{i}'
+
+        # Dynamically set entry name
+        archive.metadata.entry_type = 'NEB Workflow'
+        if self.name is 'NEB Calculation':
+            try:
+                system_name = self._systems[0].chemical_composition_hill
+                self.name = f'NEB of {system_name}'
+            except Exception:
+                logger.error(
+                    'Using default workflow name "NEB Calculation" as entry_name.'
+                )
+        archive.metadata.entry_name = self.name
 
 m_package.__init_metainfo__()

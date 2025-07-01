@@ -83,10 +83,10 @@ def test_workflow_archive_yaml():
     assert isinstance(neb_workflow, NEBWorkflow)
 
     # Asserting the default workflow name
-    assert neb_workflow.name == 'NEB'
+    assert neb_workflow.name == 'NEB of CH3-O on CuZn(211)'
 
     # Checking if total energy differences can be extracted
-    energy_differences = neb_workflow.neb_workflow_results.get(
+    energy_differences = neb_workflow.results.get(
         'total_energy_differences'
     )
     assert energy_differences is not None
@@ -94,7 +94,7 @@ def test_workflow_archive_yaml():
 
     # Ensuring metadata entry is correctly assigned after normalization
     assert workflow_archive.metadata.entry_type == 'NEB Workflow'
-    assert workflow_archive.metadata.entry_name == 'NEB Calculation'
+    assert workflow_archive.metadata.entry_name == 'NEB of CH3-O on CuZn(211)'
 
     # import json
     # with open('output_CuCuZn.json', 'w') as f:
