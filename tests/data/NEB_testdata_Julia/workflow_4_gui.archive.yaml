@@ -1,0 +1,19 @@
+workflow2:
+  m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  name: 'NEB Workflow for Julia Test Data'
+  inputs:
+    - name: Input for initial image
+      section:  '../upload/archive/mainfile/neb0.traj#/'
+    - name: Input for final image
+      section:  '../upload/archive/mainfile/neb6.traj#/'
+  tasks:
+    - name: Input for image 1
+      section:  '../upload/archive/mainfile/neb1.traj#/'
+    - name: Input for image 2
+      section:  '../upload/archive/mainfile/neb2.traj#/'
+    - name: Input for image 3
+      section:  '../upload/archive/mainfile/neb3.traj#/'
+    - name: Input for image 4
+      section:  '../upload/archive/mainfile/neb4.traj#/'
+    - name: Input for image 5
+      section:  '../upload/archive/mainfile/neb5.traj#/'

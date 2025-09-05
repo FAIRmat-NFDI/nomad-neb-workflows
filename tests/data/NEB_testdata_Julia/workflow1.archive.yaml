@@ -1,0 +1,11 @@
+workflow2:
+  m_def: nomad_neb_workflows.schema_packages.neb.NEBWorkflow
+  name: NEB of CH3-O on CuZn(211)
+  inputs:
+    - name: Input structure for initial image
+      section:  '/uploads/NEB_testdata/archive/ase_entry0#/'
+    - name: Input structure for final image
+      section:  '/uploads/NEB_testdata/archive/ase_entry2#/'
+  tasks:
+    - name: Input structure for image 1
+      section:  '/uploads/NEB_testdata/archive/ase_entry1#/'

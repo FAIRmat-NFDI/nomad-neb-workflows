@@ -1,11 +1,12 @@
 # Welcome to the `nomad-neb-workflows` documentation
 
-A NOMAD plugin containing the section definitions of a standard Nudged Elastic Band (NEB) workflow.
+A NOMAD plugin containing the section definitions and normalizer functions of a standard Nudged Elastic Band (NEB) workflow.
 
 ## Introduction
 
-!!! note "Attention"
-    TODO
+This neb-workflow plugin lets you link individual calculations that belong to one NEB calculations and automatically extracts reaction and activation energies. NEB calculations are an important tool in computational catalysis and battery research to estimate reaction or migration barriers.
+
+
 
 <div markdown="block" class="home-grid">
 <div markdown="block">
