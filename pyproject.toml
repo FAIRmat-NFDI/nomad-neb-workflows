@@ -13,9 +13,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: Apache Software License",
 ]
+keywords = ["NOMAD", "NEB", "materials-science", "workflows"]
 name = "nomad-neb-workflows"
 description = "A NOMAD plugin containing the section definitions of a standard Nudged Elastic Band (NEB) workflow."
-version = "0.1.0"
+dynamic = ["version"]
 readme = "README.rst"
 requires-python = ">=3.9"
 authors = [
@@ -31,7 +32,7 @@ maintainers = [
 license = { file = "LICENSE" }
 dependencies = [
     "nomad-lab>=1.2.2dev578",
-    "nomad-schema-plugin-simulation-workflow@git+https://github.com/nomad-coe/nomad-schema-plugin-simulation-workflow.git@develop",
+    "nomad-schema-plugin-simulation-workflow>=1.0.10",
 ]
 
 [project.urls]
@@ -126,6 +127,8 @@ line-ending = "auto"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
+
+[tool.setuptools_scm]
 
 [tool.setuptools.packages.find]
 where = ["src"]
