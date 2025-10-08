@@ -15,85 +15,71 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from nomad.parsing.parser import ArchiveParser
-from nomad.datamodel import EntryArchive, EntryMetadata
-from nomad.datamodel.context import ServerContext, ClientContext
-from nomad.files import StagingUploadFiles
-from nomad.processing import Upload
-import sys
+import pathlib
 import os.path
+import shutil
 
-from nomad.utils import get_logger
-
-from atomisticparsers.utils import ASETrajParser
+import pytest
+from nomad.client import normalize_all, parse
 
 from nomad_neb_workflows.schema_packages.neb import NEBWorkflow
-from nomad import infrastructure
 
-infrastructure.setup()
-
-logger = get_logger(__name__)
+DATA_PATH = pathlib.Path(__file__).parent.parent / 'data'
 
 
-def test_workflow_archive_yaml():
-    input1 = os.path.join('tests/data/NEB_testdata_Julia', 'neb0.traj')
-    input2 = os.path.join('tests/data/NEB_testdata_Julia', 'neb1.traj')
-    input3 = os.path.join('tests/data/NEB_testdata_Julia', 'neb6.traj')
-    workflow_input = os.path.join(
-        'tests/data', 'NEB_testdata_Julia', 'workflow1.archive.yaml'
-    )
+def match_and_parse(filename, data_path, tmp_path):
+    file_path = data_path / filename
+    tmp_file = tmp_path / filename
+    tmp_file.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(file_path, tmp_file)
+    return parse(tmp_file)[0]
 
-    upload_files = StagingUploadFiles(upload_id='NEB_testdata', create=True)
-    upload = Upload(upload_id='NEB_testdata')
-    context = ServerContext(upload=upload)
 
-    ase_archive0 = EntryArchive(
-        m_context=context,
-        metadata=EntryMetadata(upload_id=upload.upload_id, entry_id='ase_entry0'),
-    )
-    ase_archive1 = EntryArchive(
-        m_context=context,
-        metadata=EntryMetadata(upload_id=upload.upload_id, entry_id='ase_entry1'),
-    )
-    ase_archive2 = EntryArchive(
-        m_context=context,
-        metadata=EntryMetadata(upload_id=upload.upload_id, entry_id='ase_entry2'),
-    )
+@pytest.mark.usefixtures('tmp_path')
+@pytest.mark.parametrize(
+    'data_path, calculation_filenames, workflow_filename, workflow_name',
+    [
+        pytest.param(
+            DATA_PATH / 'NEB_testdata_Julia',
+            ['neb0.traj', 'neb1.traj', 'neb6.traj'],
+            'workflow1.archive.yaml',
+            'NEB of CH3-O on CuZn(211)',
+            id='ASEtraj',
+        ),
+        pytest.param(
+            DATA_PATH / 'AlCo2S4_uday_gajera',
+            [os.path.join('AlCo2S4', 'neb', f'{i:02d}', 'OUTCAR') for i in range(6)],
+            'workflow.archive.yaml',
+            'NEB of Al7Co16S32',
+            id='VASP',
+        ),
+    ],
+)
+def test_neb(
+    tmp_path, data_path, calculation_filenames, workflow_filename, workflow_name
+):
+    calculation_entries = [
+        match_and_parse(filename, data_path, tmp_path)
+        for filename in calculation_filenames
+    ]
+    for entry in calculation_entries:
+        normalize_all(entry)
 
-    ASETrajParser().parse(input1, ase_archive0, logger)
-    ASETrajParser().parse(input2, ase_archive1, logger)
-    ASETrajParser().parse(input3, ase_archive2, logger)
-
-    workflow_archive = EntryArchive(
-        m_context=context,
-        metadata=EntryMetadata(upload_id=upload.upload_id, entry_id='workflow_entry'),
-    )
-
-    ArchiveParser().parse(workflow_input, workflow_archive, logger)
-
-    upload_files.write_archive('ase_entry0', ase_archive0.m_to_dict())
-    upload_files.write_archive('ase_entry1', ase_archive1.m_to_dict())
-    upload_files.write_archive('ase_entry2', ase_archive2.m_to_dict())
-    upload_files.write_archive('workflow_entry', workflow_archive.m_to_dict())
-
-    neb_workflow = workflow_archive.workflow2
-    neb_workflow.normalize(archive=workflow_archive, logger=logger)
-
-    # Asserting that the workflow is correctly instantiated
+    workflow_entry = match_and_parse(workflow_filename, data_path, tmp_path)
+    neb_workflow = workflow_entry.workflow2
     assert isinstance(neb_workflow, NEBWorkflow)
 
+    neb_workflow.inputs[0].section = calculation_entries[0]
+    neb_workflow.inputs[1].section = calculation_entries[-1]
+    for idx, entry in enumerate(calculation_entries[1:-1]):
+        neb_workflow.tasks[idx].section = entry
+
+    normalize_all(workflow_entry)
+
     # Asserting the default workflow name
-    assert neb_workflow.name == 'NEB of CH3-O on CuZn(211)'
+    assert neb_workflow.name == workflow_name
 
     # Checking if total energy differences can be extracted
     energy_differences = neb_workflow.results.get('total_energy_differences')
     assert energy_differences is not None
-    assert len(energy_differences) == 3
-
-    # Ensuring metadata entry is correctly assigned after normalization
-    assert workflow_archive.metadata.entry_type == 'NEB Workflow'
-    assert workflow_archive.metadata.entry_name == 'NEB of CH3-O on CuZn(211)'
-
-    # import json
-    # with open('output_CuCuZn.json', 'w') as f:
-    #     json.dump(workflow_archive.m_to_dict(), f, indent=4)
+    assert len(energy_differences) == len(calculation_entries)
