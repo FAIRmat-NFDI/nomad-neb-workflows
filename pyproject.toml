@@ -48,7 +48,9 @@ dev = [
     "pytest-timeout",
     "pytest-cov",
     "structlog",
-    "lxml_html_clean>=0.1.0"
+    "lxml_html_clean>=0.1.0",
+    "nomad-parser-plugins-electronic>=1.0",
+    "nomad-parser-plugins-atomistic>=1.0",
 ]
 
 [tool.ruff]
