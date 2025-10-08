@@ -7,7 +7,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -18,20 +17,21 @@ name = "nomad-neb-workflows"
 description = "A NOMAD plugin containing the section definitions of a standard Nudged Elastic Band (NEB) workflow."
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
     { name = "Julia Schumann", email = "julia.schumann@physik.hu-berlin.de" },
     { name = "Uday Gajera", email = "uday.gajera@physik.hu-berlin.de" },
-    { name = "Jose M. Pizarro", email = "jose.pizarro@physik.hu-berlin.de" }
+    { name = "Jose M. Pizarro", email = "jose.pizarro@physik.hu-berlin.de" },
+    { name = "Hampus Näsström", email = "hampus.naesstroem@physik.hu-berlin.de" }
 ]
 maintainers = [
     { name = "Julia Schumann", email = "julia.schumann@physik.hu-berlin.de" },
     { name = "Uday Gajera", email = "uday.gajera@physik.hu-berlin.de" },
-    { name = "Jose M. Pizarro", email = "jose.pizarro@physik.hu-berlin.de" }
+    { name = "Hampus Näsström", email = "hampus.naesstroem@physik.hu-berlin.de" }
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab>=1.2.2dev578",
+    "nomad-lab>=1.3.14",
     "nomad-schema-plugin-simulation-workflow>=1.0.10",
 ]
 
