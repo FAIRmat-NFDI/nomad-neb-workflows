@@ -499,7 +499,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
                 atoms=neb_system.atoms,
                 label=f' NEB Image {i + 1}',
                 description='Calculated structure on the minimal energy path '
-                'between an intial and final state.',
+                'between an initial and final state.',
                 structural_type=neb_system.type,
             )
             add_system_info(system, topology)
@@ -512,10 +512,11 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Dynamically set entry name
         archive.metadata.entry_type = 'NEB Workflow'
-        if self.name is 'NEB Calculation':
+        if self.name == 'NEB Calculation':
             try:
                 system_name = self._systems[0].chemical_composition_hill
-                self.name = f'NEB of {system_name}'
+                if system_name is not None:
+                    self.name = f'NEB of {system_name}'
             except Exception:
                 logger.error(
                     'Using default workflow name "NEB Calculation" as entry_name.'
