@@ -512,7 +512,7 @@ class NEBWorkflow(SimulationWorkflow, PlotSection):
 
         # Dynamically set entry name
         archive.metadata.entry_type = 'NEB Workflow'
-        if self.name is 'NEB Calculation':
+        if self.name == 'NEB Calculation':
             try:
                 system_name = self._systems[0].chemical_composition_hill
                 if system_name is not None:
