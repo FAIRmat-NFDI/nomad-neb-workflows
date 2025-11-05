@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: NOMAD NEB Workflows
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Julia
+    family-names: Schumann
+    orcid: ''
+  - given-names: José M.
+    family-names: Pizarro
+    orcid: 'https://orcid.org/0000-0002-6751-8192'
+  - given-names: Udaykumar
+    family-names: Gajera
+    orcid: 'https://orcid.org/0000-0002-5568-7626'
+  - given-names: Joseph F.
+    family-names: Rudzinski
+    orcid: 'https://orcid.org/0000-0003-3403-640X'
+  - given-names: Hampus
+    family-names: Näsström
+    orcid: 'https://orcid.org/0000-0002-3264-1692'
+doi: 10.5281/zenodo.14895189
+
+repository-code: 'https://github.com/FAIRmat-NFDI/nomad-neb-workflows'
+url: 'https://fairmat-nfdi.github.io/nomad-neb-workflows/'
+abstract: >-
+  `nomad-neb-workflows` is a plugin within the NOMAD software
+    (https://zenodo.org/doi/10.5281/zenodo.8366162) containing the section definitions
+    and normalization functionalities for a standard Nudged Elastic Band (NEB) workflow.
+
+license: Apache-2.0
